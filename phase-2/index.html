@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Meridian Institute | Phase 2 — Endpoint, Identity, Compliance &amp; Exchange Security Operations</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #060e1a;
+  --bg2:      #09152a;
+  --panel:    rgba(12,24,44,.82);
+  --panel2:   rgba(18,34,60,.92);
+  --line:     rgba(140,120,220,.16);
+  --text:     #eef3fc;
+  --muted:    rgba(220,232,250,.62);
+  --violet:   #8b5cf6;
+  --lavender: #a78bfa;
+  --amber:    #fbbf24;
+  --gold:     #e8c16a;
+  --green:    #3dd68c;
+  --cyan:     #4fb8ff;
+  --red:      #f87171;
+  --orange:   #fb923c;
+  --glow-v:   rgba(139,92,246,.18);
+  --glow-a:   rgba(251,191,36,.14);
+  --shadow:   0 32px 80px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Sora',sans-serif;
+  background:var(--bg);
+  background-image:
+    radial-gradient(ellipse 60% 30% at 15% 5%,  rgba(139,92,246,.11), transparent),
+    radial-gradient(ellipse 50% 40% at 85% 15%, rgba(251,191,36,.08), transparent),
+    radial-gradient(ellipse 40% 60% at 50% 90%, rgba(139,92,246,.06), transparent);
+  color:var(--text);line-height:1.65;
+}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1200px,92vw);margin:0 auto}
+
+/* ─── NAV ─── */
+.nav{position:sticky;top:0;z-index:100;backdrop-filter:blur(20px) saturate(160%);
+  background:rgba(6,14,26,.78);border-bottom:1px solid var(--line);}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+.brand{display:flex;gap:11px;align-items:center;font-weight:800;font-size:15px;letter-spacing:-.02em}
+.logo{width:40px;height:40px;border-radius:12px;
+  background:linear-gradient(135deg,var(--violet),var(--amber));
+  display:grid;place-items:center;font-weight:900;font-size:13px;color:#060e1a;
+  box-shadow:0 0 24px rgba(139,92,246,.35);}
+.nav-right{display:flex;align-items:center;gap:24px}
+.nav-links{display:flex;gap:24px;font-size:13px;color:var(--muted);font-weight:500}
+.nav-links a:hover{color:var(--lavender)}
+.nav-phase-link{font-size:12px;font-weight:700;padding:6px 12px;border-radius:999px;
+  border:1px solid rgba(79,184,255,.3);color:var(--cyan);
+  background:rgba(79,184,255,.07);letter-spacing:.02em;transition:.2s}
+.nav-phase-link:hover{background:rgba(79,184,255,.14);border-color:rgba(79,184,255,.5)}
+
+/* ─── HERO ─── */
+.hero{padding:88px 0 64px;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 50% at 60% -10%,rgba(139,92,246,.07),transparent);
+  pointer-events:none;}
+.hero-layout{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;
+  border:1px solid rgba(139,92,246,.38);border-radius:999px;
+  background:rgba(139,92,246,.09);color:var(--lavender);font-size:12px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;margin-bottom:22px}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);
+  box-shadow:0 0 8px var(--amber);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+h1{font-size:clamp(36px,5.2vw,68px);line-height:1.03;letter-spacing:-.06em;margin-bottom:20px;font-weight:800}
+.grad{background:linear-gradient(120deg,#fff 0%,var(--lavender) 40%,var(--amber) 85%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-sub{font-size:17px;color:var(--muted);max-width:620px;line-height:1.7}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:12px;
+  border:1px solid var(--line);background:var(--panel);font-weight:700;font-size:14px;
+  cursor:pointer;transition:.2s;font-family:'Sora',sans-serif}
+.btn:hover{background:var(--panel2);border-color:rgba(139,92,246,.3)}
+.btn.primary{background:linear-gradient(135deg,var(--violet),var(--amber));
+  color:#060e1a;border:0;box-shadow:0 8px 32px rgba(139,92,246,.3)}
+.btn.primary:hover{filter:brightness(1.08)}
+
+/* ─── HERO STATS CARD ─── */
+.stats-card{background:linear-gradient(160deg,rgba(14,28,52,.95),rgba(8,16,34,.95));
+  border:1px solid var(--line);border-radius:28px;padding:28px;box-shadow:var(--shadow);
+  position:relative;overflow:hidden}
+.stats-card::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 100% 0,rgba(139,92,246,.07),transparent 55%);
+  pointer-events:none;}
+.stats-card h3{font-size:13px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);
+  font-weight:700;margin-bottom:16px}
+.metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.metric{padding:16px;border-radius:16px;background:rgba(255,255,255,.045);
+  border:1px solid var(--line);position:relative;overflow:hidden}
+.metric::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--accent,var(--violet))}
+.metric b{font-size:32px;display:block;color:#fff;font-weight:800;letter-spacing:-.04em;
+  line-height:1;font-family:'JetBrains Mono',monospace}
+.metric span{color:var(--muted);font-size:12px;margin-top:4px;display:block;font-weight:500}
+.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pill{padding:6px 10px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(255,255,255,.05);font-size:12px;color:var(--muted);font-weight:600}
+.score-block{margin-top:16px;padding:14px 16px;border-radius:14px;
+  background:rgba(139,92,246,.07);border:1px solid rgba(139,92,246,.22)}
+.score-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--lavender);font-weight:700;margin-bottom:4px}
+.score-bar{height:6px;background:rgba(255,255,255,.1);border-radius:999px;margin:8px 0 4px}
+.score-fill{height:100%;border-radius:999px;width:0;
+  background:linear-gradient(90deg,var(--violet),var(--amber));
+  transition:width 1.8s cubic-bezier(.16,1,.3,1)}
+.score-val{font-size:22px;font-weight:800;color:var(--lavender);
+  font-family:'JetBrains Mono',monospace}
+
+/* ─── SECTION ─── */
+.section{padding:72px 0}
+.section-head{margin-bottom:40px}
+h2{font-size:clamp(28px,3.8vw,48px);line-height:1.08;letter-spacing:-.05em;font-weight:800}
+.lead{color:var(--muted);font-size:17px;max-width:720px;margin-top:10px;line-height:1.7}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--amber);
+  font-weight:700;margin-bottom:8px;display:block}
+
+/* ─── CONTROL AREA CARDS ─── */
+.controls-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:8px}
+.ctrl-card{background:linear-gradient(160deg,rgba(14,26,48,.9),rgba(8,18,38,.9));
+  border:1px solid var(--line);border-radius:22px;padding:24px;
+  position:relative;overflow:hidden;transition:.3s}
+.ctrl-card:hover{border-color:var(--c-line,rgba(139,92,246,.3));transform:translateY(-3px);
+  box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.ctrl-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--c-bar,var(--violet))}
+.ctrl-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+  font-size:20px;margin-bottom:14px;background:var(--c-bg,rgba(139,92,246,.1));
+  border:1px solid var(--c-line,rgba(139,92,246,.25))}
+.ctrl-card h3{font-size:16px;font-weight:700;margin-bottom:10px;letter-spacing:-.02em}
+.ctrl-card ul{list-style:none;display:grid;gap:7px}
+.ctrl-card ul li{font-size:13px;color:var(--muted);display:flex;align-items:flex-start;gap:8px}
+.ctrl-card ul li::before{content:'→';color:var(--c-dot,var(--violet));flex-shrink:0;font-weight:700;margin-top:1px}
+
+/* ─── BUILD TIMELINE ─── */
+.timeline{display:grid;gap:0;position:relative;padding-left:28px;margin-top:8px}
+.timeline::before{content:'';position:absolute;left:0;top:16px;bottom:16px;width:2px;
+  background:linear-gradient(180deg,var(--violet),var(--amber))}
+.tl-item{position:relative;padding:0 0 36px 32px}
+.tl-item:last-child{padding-bottom:0}
+.tl-dot{position:absolute;left:-35px;top:8px;width:16px;height:16px;border-radius:50%;
+  background:var(--violet);border:3px solid var(--bg);
+  box-shadow:0 0 0 4px rgba(139,92,246,.2)}
+.tl-item:nth-child(2) .tl-dot{background:var(--amber)}
+.tl-item:nth-child(3) .tl-dot{background:var(--green)}
+.tl-item:nth-child(4) .tl-dot{background:var(--orange)}
+.tl-item h3{font-size:17px;font-weight:700;margin-bottom:6px;letter-spacing:-.03em}
+.tl-item p{font-size:14px;color:var(--muted);line-height:1.6}
+
+/* ─── CODE TABS ─── */
+.code-section{background:rgba(6,12,22,.6);border:1px solid var(--line);border-radius:28px;
+  overflow:hidden;box-shadow:var(--shadow)}
+.code-tab-bar{display:flex;gap:0;border-bottom:1px solid var(--line);
+  background:rgba(255,255,255,.03);overflow-x:auto}
+.code-tab{padding:13px 18px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;
+  border-bottom:2px solid transparent;white-space:nowrap;transition:.2s;font-family:'JetBrains Mono',monospace}
+.code-tab:hover{color:var(--text)}
+.code-tab.active{color:var(--lavender);border-bottom-color:var(--lavender)}
+.code-panel{display:none}
+.code-panel.active{display:block}
+.code-top{display:flex;align-items:center;gap:8px;padding:12px 16px;
+  border-bottom:1px solid var(--line);background:rgba(255,255,255,.025)}
+.dot{width:12px;height:12px;border-radius:50%}
+.d1{background:#f87171}.d2{background:#e8c16a}.d3{background:#3dd68c}
+.code-label{margin-left:auto;font-size:11px;color:var(--muted);
+  font-family:'JetBrains Mono',monospace;font-weight:600}
+pre{padding:24px;overflow-x:auto;font-family:'JetBrains Mono',monospace;
+  font-size:13px;line-height:1.6;color:#c8e6ff}
+.k{color:var(--green)}.p{color:var(--cyan)}.s{color:var(--gold)}
+.c{color:rgba(180,200,230,.45);font-style:italic}.v{color:var(--lavender)}
+
+/* ─── EVIDENCE TABS ─── */
+.evidence-tab-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.ev-tab{padding:9px 16px;border-radius:999px;border:1px solid var(--line);
+  background:rgba(255,255,255,.05);font-size:13px;font-weight:600;
+  color:var(--muted);cursor:pointer;transition:.2s}
+.ev-tab:hover{border-color:rgba(139,92,246,.3);color:var(--text)}
+.ev-tab.active{background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.45);color:var(--lavender)}
+.ev-tab[data-phase="endpoint"].active{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.4);color:var(--amber)}
+.ev-tab[data-phase="purview"].active{background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.45);color:var(--lavender)}
+.ev-tab[data-phase="identity"].active{background:rgba(79,184,255,.1);border-color:rgba(79,184,255,.4);color:var(--cyan)}
+.ev-tab[data-phase="powershell"].active{background:rgba(61,214,140,.1);border-color:rgba(61,214,140,.4);color:var(--green)}
+.ev-tab[data-phase="exchange"].active{background:rgba(61,214,140,.1);border-color:rgba(61,214,140,.4);color:var(--green)}
+.ev-tab[data-phase="general"].active{background:rgba(248,113,113,.1);border-color:rgba(248,113,113,.4);color:var(--red)}
+
+.evidence-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.ev-card{background:linear-gradient(160deg,rgba(14,26,48,.9),rgba(8,18,38,.9));
+  border:1px solid var(--line);border-radius:22px;overflow:hidden;
+  cursor:pointer;transition:.25s;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.ev-card:hover{transform:translateY(-4px);border-color:rgba(139,92,246,.3);
+  box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 0 1px rgba(139,92,246,.1)}
+.ev-card[data-phase="endpoint"]:hover{border-color:rgba(251,191,36,.3)}
+.ev-card[data-phase="purview"]:hover{border-color:rgba(139,92,246,.3)}
+.ev-card[data-phase="identity"]:hover{border-color:rgba(79,184,255,.3)}
+.ev-card[data-phase="powershell"]:hover{border-color:rgba(61,214,140,.3)}
+.ev-card[data-phase="exchange"]:hover{border-color:rgba(61,214,140,.3)}
+.ev-card[data-phase="general"]:hover{border-color:rgba(248,113,113,.3)}
+.ev-img{background:#06101e;padding:10px}
+.ev-img img{width:100%;display:block;border-radius:12px;border:1px solid rgba(255,255,255,.08);
+  object-fit:cover;aspect-ratio:16/10}
+.ev-body{padding:16px 18px 20px}
+.ev-tag{display:inline-flex;align-items:center;gap:5px;font-size:10px;text-transform:uppercase;
+  letter-spacing:.1em;font-weight:800;margin-bottom:6px;padding:3px 8px;border-radius:4px}
+.ev-tag[data-phase="endpoint"]{color:var(--amber);background:rgba(251,191,36,.1)}
+.ev-tag[data-phase="purview"]{color:var(--lavender);background:rgba(139,92,246,.1)}
+.ev-tag[data-phase="identity"]{color:var(--cyan);background:rgba(79,184,255,.1)}
+.ev-tag[data-phase="powershell"]{color:var(--green);background:rgba(61,214,140,.1)}
+.ev-tag[data-phase="exchange"]{color:var(--green);background:rgba(61,214,140,.1)}
+.ev-tag[data-phase="general"]{color:var(--red);background:rgba(248,113,113,.1)}
+.ev-body h3{font-size:15px;font-weight:700;margin-bottom:5px;letter-spacing:-.02em}
+.ev-body p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* ─── LIGHTBOX ─── */
+.lb{position:fixed;inset:0;z-index:999;background:rgba(2,6,14,.92);
+  display:none;place-items:center;backdrop-filter:blur(12px)}
+.lb.open{display:grid}
+.lb-inner{position:relative;max-width:min(1100px,90vw);width:100%}
+.lb-img-wrap{background:#070f1d;border-radius:20px;border:1px solid var(--line);overflow:hidden;
+  box-shadow:0 40px 100px rgba(0,0,0,.7)}
+.lb-img-wrap img{width:100%;display:block;max-height:75vh;object-fit:contain}
+.lb-caption{padding:16px 20px;border-top:1px solid var(--line)}
+.lb-caption h4{font-size:15px;font-weight:700}
+.lb-caption p{font-size:13px;color:var(--muted);margin-top:3px}
+.lb-close{position:absolute;top:-48px;right:0;width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.1);border:1px solid var(--line);cursor:pointer;
+  display:grid;place-items:center;font-size:18px;color:var(--text);transition:.2s}
+.lb-close:hover{background:rgba(255,255,255,.2)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;
+  border-radius:50%;background:rgba(12,24,44,.9);border:1px solid var(--line);
+  cursor:pointer;display:grid;place-items:center;font-size:20px;transition:.2s}
+.lb-nav:hover{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4)}
+.lb-prev{left:-60px}.lb-next{right:-60px}
+.lb-counter{position:absolute;bottom:-36px;left:50%;transform:translateX(-50%);
+  font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+
+/* ─── IMPACT ─── */
+.impact-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.imp-card{background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:26px}
+.imp-card h3{font-size:18px;font-weight:700;margin-bottom:14px;letter-spacing:-.03em}
+ul.checks{list-style:none;display:grid;gap:10px}
+ul.checks li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--muted)}
+ul.checks li::before{content:'✓';color:var(--green);font-weight:900;flex-shrink:0;margin-top:1px}
+
+/* ─── CALLOUT ─── */
+.callout{border:1px solid rgba(139,92,246,.3);background:rgba(139,92,246,.07);
+  padding:24px 28px;border-radius:20px;margin-top:0}
+.callout strong{color:var(--lavender)}
+.callout p{color:var(--muted);font-size:15px;line-height:1.7;margin-top:8px}
+
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* ─── FOOTER ─── */
+.footer{border-top:1px solid var(--line);padding:36px 0}
+.footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-left{}
+.footer-name{font-weight:800;font-size:16px;letter-spacing:-.02em}
+.footer-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.footer-links{display:flex;gap:16px;font-size:13px}
+.footer-links a{color:var(--lavender);font-weight:600;transition:.2s;
+  display:inline-flex;align-items:center;gap:6px}
+.footer-links a:hover{color:#fff}
+.footer-nav{display:flex;gap:20px;font-size:13px;color:var(--muted);align-items:center}
+.footer-nav a{color:var(--cyan);font-weight:600;transition:.2s}
+.footer-nav a:hover{color:#fff}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .hero-layout,.impact-grid{grid-template-columns:1fr}
+  .controls-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  .lb-prev{left:-10px}.lb-next{right:-10px}
+}
+@media(max-width:600px){
+  .controls-grid{grid-template-columns:1fr}
+  .evidence-grid{grid-template-columns:1fr}
+  .metric-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#">
+      <span class="logo">MI</span>
+      <span>Meridian Institute</span>
+    </a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#controls">Controls</a>
+        <a href="#powershell">PowerShell</a>
+        <a href="#evidence">Evidence</a>
+        <a href="#impact">Impact</a>
+      </div>
+      <a class="nav-phase-link" href="meridian-v2-standalone.html">← Phase 1</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-layout">
+    <div>
+      <div class="badge"><span class="badge-dot"></span>Phase 2 · Security Operations Expansion</div>
+      <h1>Endpoint, Identity<br>&amp; <span class="grad">Compliance Ops</span></h1>
+      <p class="hero-sub">A Microsoft 365 enterprise security expansion covering Intune endpoint governance, Entra ID identity hardening, Purview compliance controls, Conditional Access, RBAC, DLP, and Exchange Online mail security — all deployed in safe, governance-first modes across 4 admin centers.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#evidence">View All Evidence</a>
+        <a class="btn" href="#powershell">PowerShell Scripts</a>
+        <a class="btn" href="#controls">Control Areas</a>
+      </div>
+    </div>
+    <aside class="stats-card reveal">
+      <h3>What this phase delivers</h3>
+      <div class="metric-grid">
+        <div class="metric" style="--accent:var(--violet)">
+          <b class="count" data-target="4">0</b>
+          <span>admin centers used</span>
+        </div>
+        <div class="metric" style="--accent:var(--amber)">
+          <b class="count" data-target="6">0</b>
+          <span>control areas implemented</span>
+        </div>
+        <div class="metric" style="--accent:var(--green)">
+          <b class="count" data-target="116">0</b>
+          <span>evidence screenshots</span>
+        </div>
+        <div class="metric" style="--accent:var(--orange)">
+          <b class="count" data-target="3">0</b>
+          <span>Conditional Access policies</span>
+        </div>
+      </div>
+      <div class="score-block">
+        <div class="score-label">Deployment Posture</div>
+        <div class="score-val">Report-Only</div>
+        <div class="score-bar"><div class="score-fill" data-w="100"></div></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:4px">Safe staged rollout — no user disruption</div>
+      </div>
+      <div class="pill-row">
+        <span class="pill">Intune</span>
+        <span class="pill">Purview</span>
+        <span class="pill">Entra ID</span>
+        <span class="pill">Exchange</span>
+        <span class="pill">DLP</span>
+        <span class="pill">RBAC</span>
+        <span class="pill">MFA</span>
+        <span class="pill">Zero Trust</span>
+      </div>
+    </aside>
+  </div>
+</header>
+
+<!-- CONTROL AREAS -->
+<section id="controls" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Security Architecture</span>
+      <h2>Six Control Areas</h2>
+      <p class="lead">Phase 2 expands the Meridian lab into a multi-admin-center security operations environment — hardening identity, governing endpoints, protecting sensitive data, and securing mail flow.</p>
+    </div>
+    <div class="controls-grid">
+      <div class="ctrl-card reveal" style="--c-bar:var(--amber);--c-bg:rgba(251,191,36,.08);--c-line:rgba(251,191,36,.25);--c-dot:var(--amber)">
+        <div class="ctrl-icon">🖥️</div>
+        <h3>Endpoint Governance</h3>
+        <ul>
+          <li>Windows compliance policy — OS, password, firewall</li>
+          <li>Defender antivirus &amp; BitLocker enforcement</li>
+          <li>Endpoint security baseline (Microsoft recommended)</li>
+          <li>Update ring &amp; deployment ring configuration</li>
+          <li>PowerShell validation commands for endpoint reporting</li>
+        </ul>
+      </div>
+      <div class="ctrl-card reveal" style="--c-bar:var(--cyan);--c-bg:rgba(79,184,255,.08);--c-line:rgba(79,184,255,.25);--c-dot:var(--cyan)">
+        <div class="ctrl-icon">🔐</div>
+        <h3>Identity &amp; Access (RBAC)</h3>
+        <ul>
+          <li>Helpdesk-Level1 delegated admin role assignment</li>
+          <li>Security Reader role for SOC personnel</li>
+          <li>MFA-required security group design</li>
+          <li>Least-privilege scoping per persona</li>
+          <li>SSPR configuration &amp; authentication methods</li>
+        </ul>
+      </div>
+      <div class="ctrl-card reveal" style="--c-bar:var(--violet);--c-bg:rgba(139,92,246,.08);--c-line:rgba(139,92,246,.25);--c-dot:var(--lavender)">
+        <div class="ctrl-icon">🛡️</div>
+        <h3>Conditional Access</h3>
+        <ul>
+          <li>Report-only MFA enforcement for admin roles</li>
+          <li>Legacy authentication block policy</li>
+          <li>Compliant-device access control (report-only)</li>
+          <li>Staged rollout — zero user disruption</li>
+          <li>CA policy visibility &amp; audit evidence</li>
+        </ul>
+      </div>
+      <div class="ctrl-card reveal" style="--c-bar:var(--lavender);--c-bg:rgba(167,139,250,.08);--c-line:rgba(167,139,250,.25);--c-dot:var(--lavender)">
+        <div class="ctrl-icon">📋</div>
+        <h3>Microsoft Purview</h3>
+        <ul>
+          <li>DLP policies for Canadian sensitive data types (SIN, health cards)</li>
+          <li>Communication Compliance policy creation</li>
+          <li>Retention label workflow (Exchange + SharePoint)</li>
+          <li>Compliance Manager &amp; NIST SP 800-53 assessment</li>
+          <li>Sensitivity labeling &amp; information protection</li>
+        </ul>
+      </div>
+      <div class="ctrl-card reveal" style="--c-bar:var(--green);--c-bg:rgba(61,214,140,.08);--c-line:rgba(61,214,140,.25);--c-dot:var(--green)">
+        <div class="ctrl-icon">📬</div>
+        <h3>Exchange Online</h3>
+        <ul>
+          <li>IT Helpdesk shared mailbox provisioned</li>
+          <li>Mailbox address &amp; display name configured</li>
+          <li>Transport rule — block external auto-forwarding</li>
+          <li>Anti-spam, anti-malware, Safe Attachments</li>
+          <li>DKIM signing &amp; mail flow governance</li>
+        </ul>
+      </div>
+      <div class="ctrl-card reveal" style="--c-bar:var(--orange);--c-bg:rgba(251,146,60,.08);--c-line:rgba(251,146,60,.25);--c-dot:var(--orange)">
+        <div class="ctrl-icon">⚡</div>
+        <h3>Security Operations Narrative</h3>
+        <ul>
+          <li>Least-privilege administration throughout</li>
+          <li>Data exfiltration risk reduction (DLP + transport)</li>
+          <li>Governance-first policy design (report-only default)</li>
+          <li>Operational documentation &amp; evidence capture</li>
+          <li>Cross-admin-center security posture alignment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD TIMELINE -->
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Operational Sequence</span>
+      <h2>Build Order</h2>
+      <p class="lead">Each control area built sequentially — later steps assumed earlier ones were in place.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <h3>1 — Endpoint Governance Baseline</h3>
+        <p>Documented and configured Intune compliance controls: Windows security baseline, update rings, Defender and firewall policies, BitLocker enforcement, and PowerShell validation commands for endpoint state reporting.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <h3>2 — Purview Compliance Expansion</h3>
+        <p>Created DLP policies targeting Canadian PII (SIN, health card numbers), Communication Compliance policies, retention labels for Exchange and SharePoint, and captured Compliance Manager / NIST assessment evidence.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <h3>3 — Entra ID &amp; Conditional Access Hardening</h3>
+        <p>Built RBAC delegated admin roles (Helpdesk, Security Reader), MFA security groups, SSPR configuration, and Conditional Access report-only policies for MFA enforcement, legacy auth blocking, and compliant-device access.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <h3>4 — Exchange Online Mail Security</h3>
+        <p>Provisioned the IT Helpdesk shared mailbox, configured address and display name, created a transport rule to block external auto-forwarding, and reviewed anti-spam, Safe Attachments, and DKIM governance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POWERSHELL SECTION -->
+<section id="powershell" class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Validation Layer</span>
+      <h2>PowerShell as the Control Validator</h2>
+      <p class="lead">PowerShell commands were used to validate endpoint compliance states, Exchange mail flow rules, Purview policy deployment, and Entra ID role/CA configurations — making every control evidence-backed and repeatable.</p>
+    </div>
+    <div class="code-section reveal">
+      <div class="code-tab-bar">
+        <div class="code-tab active" data-tab="intune">01 · Intune Validation</div>
+        <div class="code-tab" data-tab="exchange">02 · Exchange Online</div>
+        <div class="code-tab" data-tab="purview">03 · Purview &amp; DLP</div>
+        <div class="code-tab" data-tab="entra">04 · Entra ID &amp; CA</div>
+      </div>
+
+      <div class="code-panel active" id="tab-intune">
+        <div class="code-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="code-label">PowerShell — Intune Endpoint Compliance Validation</span></div>
+        <pre><code><span class="c"># Connect to Microsoft Graph with Intune scopes</span>
+<span class="k">Connect-MgGraph</span> <span class="p">-Scopes</span> <span class="s">"DeviceManagementConfiguration.Read.All"</span>,<span class="s">"DeviceManagementManagedDevices.Read.All"</span>
+
+<span class="c"># List all device compliance policies</span>
+<span class="k">Get-MgDeviceManagementDeviceCompliancePolicy</span> | <span class="k">Select</span> DisplayName,Id,CreatedDateTime
+
+<span class="c"># List compliance policy assignments</span>
+<span class="k">Get-MgDeviceManagementDeviceCompliancePolicy</span> <span class="p">-All</span> |
+  <span class="k">ForEach-Object</span> {
+    <span class="v">$policy</span> = <span class="v">$_</span>
+    <span class="k">Get-MgDeviceManagementDeviceCompliancePolicyAssignment</span> <span class="p">-DeviceCompliancePolicyId</span> <span class="v">$policy</span>.Id |
+      <span class="k">Select</span> @{N=<span class="s">'Policy'</span>;E={<span class="v">$policy</span>.DisplayName}}, Target
+  }
+
+<span class="c"># List endpoint security baselines</span>
+<span class="k">Get-MgDeviceManagementIntent</span> | <span class="k">Select</span> DisplayName,TemplateName,IsAssigned
+
+<span class="c"># Validate device configuration profiles</span>
+<span class="k">Get-MgDeviceManagementDeviceConfiguration</span> | <span class="k">Select</span> DisplayName,OdataType,LastModifiedDateTime
+</code></pre>
+      </div>
+
+      <div class="code-panel" id="tab-exchange">
+        <div class="code-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="code-label">PowerShell — Exchange Online Mail Flow Validation</span></div>
+        <pre><code><span class="c"># Connect to Exchange Online</span>
+<span class="k">Connect-ExchangeOnline</span>
+
+<span class="c"># Validate shared mailbox creation</span>
+<span class="k">Get-Mailbox</span> <span class="p">-RecipientTypeDetails</span> SharedMailbox | <span class="k">Select</span> DisplayName,PrimarySmtpAddress,Alias
+
+<span class="c"># List all transport / mail flow rules</span>
+<span class="k">Get-TransportRule</span> | <span class="k">Select</span> Name,State,Priority,Description
+
+<span class="c"># Validate external auto-forwarding block rule</span>
+<span class="k">Get-TransportRule</span> | <span class="k">Where-Object</span> { <span class="v">$_</span>.Name <span class="p">-like</span> <span class="s">"*forward*"</span> } |
+  <span class="k">Select</span> Name,State,RedirectMessageTo,RejectMessageEnhancedStatusCode
+
+<span class="c"># Check remote domain forwarding settings</span>
+<span class="k">Get-RemoteDomain</span> | <span class="k">Select</span> DomainName,AutoForwardEnabled,AllowedOOFType
+
+<span class="c"># Verify anti-spam / connection filter policies</span>
+<span class="k">Get-HostedConnectionFilterPolicy</span> | <span class="k">Select</span> Name,IsDefault,IPAllowList,IPBlockList
+</code></pre>
+      </div>
+
+      <div class="code-panel" id="tab-purview">
+        <div class="code-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="code-label">PowerShell — Purview Compliance &amp; DLP Validation</span></div>
+        <pre><code><span class="c"># Connect to Security &amp; Compliance PowerShell</span>
+<span class="k">Connect-IPPSSession</span>
+
+<span class="c"># List all DLP policies and their state</span>
+<span class="k">Get-DlpCompliancePolicy</span> | <span class="k">Select</span> Name,Mode,Workload,CreatedBy,WhenCreated
+
+<span class="c"># List DLP rules under each policy</span>
+<span class="k">Get-DlpComplianceRule</span> | <span class="k">Select</span> Name,ParentPolicyName,BlockAccess,NotifyUser
+
+<span class="c"># Validate retention labels</span>
+<span class="k">Get-ComplianceTag</span> | <span class="k">Select</span> Name,RetentionDuration,RetentionAction,IsRecordLabel
+
+<span class="c"># List retention policies and their locations</span>
+<span class="k">Get-RetentionCompliancePolicy</span> | <span class="k">Select</span> Name,Enabled,ExchangeLocation,SharePointLocation
+
+<span class="c"># Check communication compliance policies</span>
+<span class="k">Get-SupervisoryReviewPolicy</span> | <span class="k">Select</span> Name,Enabled,Reviewers,SamplingRate
+
+<span class="c"># Result: DLP policies — Canadian PII types protected</span>
+<span class="c"># SIN (Canada Social Insurance Number), Health Card — active in Exchange+SharePoint+Teams</span>
+</code></pre>
+      </div>
+
+      <div class="code-panel" id="tab-entra">
+        <div class="code-top"><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class="code-label">PowerShell — Entra ID RBAC &amp; Conditional Access Validation</span></div>
+        <pre><code><span class="c"># Connect with identity + CA read scopes</span>
+<span class="k">Connect-MgGraph</span> <span class="p">-Scopes</span> <span class="s">"RoleManagement.Read.Directory"</span>,<span class="s">"Policy.Read.All"</span>
+
+<span class="c"># List all active role assignments in the tenant</span>
+<span class="k">Get-MgRoleManagementDirectoryRoleAssignment</span> <span class="p">-All</span> |
+  <span class="k">Select</span> RoleDefinitionId,PrincipalId,DirectoryScopeId
+
+<span class="c"># Show role display names + assigned users</span>
+<span class="k">Get-MgDirectoryRole</span> | <span class="k">ForEach-Object</span> {
+  <span class="v">$role</span> = <span class="v">$_</span>
+  <span class="k">Get-MgDirectoryRoleMember</span> <span class="p">-DirectoryRoleId</span> <span class="v">$role</span>.Id |
+    <span class="k">Select</span> @{N=<span class="s">'Role'</span>;E={<span class="v">$role</span>.DisplayName}}, @{N=<span class="s">'Member'</span>;E={<span class="v">$_</span>.Id}}
+}
+
+<span class="c"># List all Conditional Access policies + their state</span>
+<span class="k">Get-MgConditionalAccessPolicy</span> | <span class="k">Select</span> DisplayName,State,CreatedDateTime
+
+<span class="c"># Result: 3 CA policies — all in Report-Only (safe staged mode)</span>
+<span class="c"># Require MFA for Admin Roles       → reportOnly</span>
+<span class="c"># Block Legacy Authentication        → reportOnly</span>
+<span class="c"># Require Compliant Device           → reportOnly</span>
+</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVIDENCE GALLERY -->
+<section id="evidence" class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Control Evidence</span>
+      <h2>116 Evidence Screenshots</h2>
+      <p class="lead">Configuration evidence across Microsoft Intune, Entra ID, Purview, Exchange Online, and PowerShell — cleaned, organized, and documented for portfolio walkthroughs and interview storytelling.</p>
+    </div>
+
+    <div class="evidence-tab-row">
+      <button class="ev-tab active" data-phase="all">All (116)</button>
+      <button class="ev-tab" data-phase="endpoint">Endpoint &amp; Intune (43)</button>
+      <button class="ev-tab" data-phase="powershell">PowerShell Ops (18)</button>
+      <button class="ev-tab" data-phase="purview">Microsoft Purview (24)</button>
+      <button class="ev-tab" data-phase="identity">Identity &amp; CA (16)</button>
+      <button class="ev-tab" data-phase="exchange">Exchange Online (15)</button>
+    </div>
+
+    <div class="evidence-grid" id="evGrid"></div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact" class="section">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Portfolio Value</span>
+      <h2>Skills &amp; Impact Demonstrated</h2>
+      <p class="lead">Phase 2 proves hands-on security administration across identity, compliance, endpoint, and email governance — not just basic tenant configuration.</p>
+    </div>
+    <div class="impact-grid reveal">
+      <div class="imp-card">
+        <h3>🔐 Security Administration</h3>
+        <ul class="checks">
+          <li>Conditional Access policy design and staging in report-only mode</li>
+          <li>RBAC least-privilege scoping — Helpdesk, Security Reader, Global Admin</li>
+          <li>MFA enforcement strategy with security group targeting</li>
+          <li>Legacy authentication elimination via transport-level block</li>
+          <li>Zero Trust posture implementation across 4 admin centers</li>
+        </ul>
+      </div>
+      <div class="imp-card">
+        <h3>📋 Compliance &amp; Data Governance</h3>
+        <ul class="checks">
+          <li>DLP policies scoped to Canadian PII (SIN, provincial health card)</li>
+          <li>Retention label lifecycle — creation, policy, deployment</li>
+          <li>Communication Compliance for regulatory monitoring</li>
+          <li>Compliance Manager + NIST SP 800-53 assessment evidence</li>
+          <li>Sensitivity labeling and information protection workflow</li>
+        </ul>
+      </div>
+      <div class="imp-card">
+        <h3>🖥️ Endpoint &amp; Device Management</h3>
+        <ul class="checks">
+          <li>Windows compliance policy — OS, Defender, BitLocker, firewall, password</li>
+          <li>Microsoft Security Baseline applied via Endpoint Security</li>
+          <li>Update ring configuration with staged deployment strategy</li>
+          <li>PowerShell Graph API validation of all endpoint controls</li>
+          <li>Intune settings catalog — granular Windows security rules</li>
+        </ul>
+      </div>
+      <div class="imp-card">
+        <h3>📬 Mail Security &amp; Operations</h3>
+        <ul class="checks">
+          <li>Shared mailbox provisioning with delegated access control</li>
+          <li>Transport rule — auto-forwarding exfiltration protection</li>
+          <li>Anti-spam and anti-malware policy validation</li>
+          <li>Safe Attachments and Safe Links — Defender for Office 365</li>
+          <li>DKIM signing and remote domain governance</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout reveal" style="margin-top:32px">
+      <strong>Portfolio positioning:</strong>
+      <p>This phase demonstrates that Meridian Institute is more than a tenant setup — it's a simulated enterprise security operations environment covering identity hardening, compliance governance, endpoint management, and mail flow security. Each control area is evidence-backed and interview-ready.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <div class="lb-inner">
+    <button class="lb-close" id="lbClose">✕</button>
+    <button class="lb-nav lb-prev" id="lbPrev">‹</button>
+    <button class="lb-nav lb-next" id="lbNext">›</button>
+    <div class="lb-img-wrap">
+      <img id="lbImg" src="" alt="">
+      <div class="lb-caption">
+        <h4 id="lbTitle"></h4>
+        <p id="lbDesc"></p>
+      </div>
+    </div>
+    <div class="lb-counter" id="lbCounter"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-left">
+      <div class="footer-name">Md Rahat Islam Anik</div>
+      <div class="footer-sub">Meridian Institute M365 Lab — Phase 2 Security Operations</div>
+      <div class="footer-links" style="margin-top:10px">
+        <a href="https://linkedin.com/in/rahatislamanik" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/rahatislamanik-spec" target="_blank">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div class="footer-nav">
+        <a href="meridian-v2-standalone.html">← Phase 1</a>
+        <span style="color:var(--line)">|</span>
+        <span style="color:var(--muted);font-size:12px">Phase 2 · May 2026</span>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-top:8px">Built with Microsoft 365 · Intune · Purview · Entra ID · Exchange Online</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── EVIDENCE DATA ── */
+/* NOTE: Screenshots 030 (Compugen job application) and 063 (ACCES Calendly) 
+   are non-M365 screenshots that were captured by accident. Remove them from 
+   your GitHub repo: phase-2/assets/screenshots/phase2_screenshot_030.png 
+   and phase2_screenshot_063.png */
+const EVIDENCE = [
+  // ── ENDPOINT & INTUNE (43 shots) ──
+  {img:'phase2_screenshot_001.png',title:'Autopilot — Create Profile Assignments (Students Baseline)',desc:'Windows Autopilot deployment profile wizard at the Assignments step. No included groups — excluded groups section being configured for WIN11_STUDENTS_AUTOPILOT profile.',phase:'endpoint'},
+  {img:'phase2_screenshot_002.png',title:'Autopilot — Exclude Student Groups from Profile',desc:'Assignments step: Students and Students 2 groups added to the excluded groups list for this Autopilot profile. Active status confirmed for both groups.',phase:'endpoint'},
+  {img:'phase2_screenshot_003.png',title:'Autopilot — WIN11_STUDENTS_AUTOPILOT Review + Create',desc:'Review step for WIN11_STUDENTS_AUTOPILOT: User-Driven deployment, Microsoft Entra joined, OOBE settings hide EULA and privacy screens, user account type Standard.',phase:'endpoint'},
+  {img:'phase2_screenshot_004.png',title:'Autopilot — WIN11_STUDENTS_AUTOPILOT Profile Created',desc:'Windows Autopilot deployment profiles list showing WIN11_STUDENTS_AUTOPILOT created — Microsoft Entra joined, not yet assigned.',phase:'endpoint'},
+  {img:'phase2_screenshot_005.png',title:'Autopilot — Select Excluded Groups (Professors)',desc:'"Select groups to exclude" panel: Professors checked and listed in the Selected panel. All 5 Meridian groups visible — IT Operations, Professors, Security Operations, Students, Students 2.',phase:'endpoint'},
+  {img:'phase2_screenshot_006.png',title:'Autopilot — WIN11_PROFESSORS_AUTOPILOT Assignments',desc:'Assignments step for the Professors Autopilot profile: Professors group in excluded groups, no included groups configured.',phase:'endpoint'},
+  {img:'phase2_screenshot_007.png',title:'Autopilot — WIN11_PROFESSORS_AUTOPILOT Review',desc:'Review + Create scrolled to show OOBE settings and Assignments summary. Professors group confirmed in excluded section.',phase:'endpoint'},
+  {img:'phase2_screenshot_008.png',title:'Autopilot — WIN11_PROFESSORS_AUTOPILOT Created + Assigned',desc:'Profiles list showing 2 profiles: WIN11_PROFESSORS_AUTOPILOT (created and assigned). Toast notifications confirm "Profile successfully assigned" and "Profile successfully created".',phase:'endpoint'},
+  {img:'phase2_screenshot_009.png',title:'Autopilot — WIN11_ITOPS_AUTOPILOT Basics',desc:'Basics tab for the IT Operations Autopilot profile: name WIN11_ITOPS_AUTOPILOT, description covers enterprise onboarding, administrative access, and Intune security policy provisioning.',phase:'endpoint'},
+  {img:'phase2_screenshot_010.png',title:'Autopilot — Exclude IT Operations Group',desc:'"Select groups to exclude" panel: IT Operations checked and selected. 5 groups listed — IT Operations highlighted with checkbox.',phase:'endpoint'},
+  {img:'phase2_screenshot_011.png',title:'Autopilot — WIN11_ITOPS_AUTOPILOT Review + Create',desc:'Review step for WIN11_ITOPS_AUTOPILOT: User-Driven, Entra joined, OOBE settings configured, IT Operations in excluded groups.',phase:'endpoint'},
+  {img:'phase2_screenshot_012.png',title:'Autopilot — All 3 Profiles Created',desc:'Profiles list with all 3 Autopilot profiles: WIN11_ITOPS_AUTOPILOT (not assigned), WIN11_PROFESSORS_AUTOPILOT (Yes), WIN11_STUDENTS_AUTOPILOT (Yes). Toast: "Profile successfully assigned" for ITOPS.',phase:'endpoint'},
+  {img:'phase2_screenshot_013.png',title:'macOS Compliance — Password & Security Settings',desc:'macOS compliance policy scrolled to password expiry (41 days), password reuse (5 previous), Encryption (not configured), Firewall (Enable, Block incoming, Stealth Mode), Gatekeeper (Mac App Store + identified developers).',phase:'endpoint'},
+  {img:'phase2_screenshot_014.png',title:'macOS Compliance — Compliance Settings Tab',desc:'Compliance settings step for macOS: Device Health requires System Integrity Protection. Device Properties sets minimum OS 14.0. System Security requires password, blocks simple passwords, minimum length 10, alphanumeric type.',phase:'endpoint'},
+  {img:'phase2_screenshot_015.png',title:'macOS Compliance — Actions for Noncompliance',desc:'Noncompliance actions configured: Mark device noncompliant immediately, Send email at day 0 (1 recipient selected), Remotely lock at 7 days, Add to retire list at 30 days. Template required error visible.',phase:'endpoint'},
+  {img:'phase2_screenshot_016.png',title:'macOS Compliance — MACOS_STUDENTS_COMPLIANCE Review',desc:'Review + Create for MACOS_STUDENTS_COMPLIANCE: baseline macOS compliance for student devices, macOS platform, System Integrity Protection required, OS min 14.0, password required + blocked simple, min length 10.',phase:'endpoint'},
+  {img:'phase2_screenshot_017.png',title:'macOS Compliance — Assignment Error: Include Required',desc:'Assignments step showing error "At least one group must be included when excluded groups were selected." Students and Students 2 are in excluded groups but no included group configured.',phase:'endpoint'},
+  {img:'phase2_screenshot_018.png',title:'Endpoint Security — Attack Surface Reduction Profile Panel',desc:'Endpoint security → Attack Surface Reduction: Create a profile flyout showing Platform: Windows, Profile: Attack Surface Reduction Rules. Policy list shows 0 existing ASR policies.',phase:'endpoint'},
+  {img:'phase2_screenshot_019.png',title:'ASR Rules — Policy Settings (Page 1)',desc:'Attack Surface Reduction Rules Create Policy — first screen of ASR rules: Block execution of obfuscated scripts, Block Office communication app child processes, Block all Office apps creating child processes, Block Win32 API calls from macros — all Off (Default).',phase:'endpoint'},
+  {img:'phase2_screenshot_020.png',title:'ASR Rules — Policy Settings (Page 2)',desc:'ASR Create Policy (scrolled): Block Webshell creation for Servers, Block Adobe Reader child processes, Block credential stealing from LSASS, Block exploited vulnerable signed drivers, Block WMI event subscription persistence — all Off (Default).',phase:'endpoint'},
+  {img:'phase2_screenshot_021.png',title:'ASR Rules — Policy Settings (Page 3 + Controlled Folder Access)',desc:'ASR rules final section: Block rebooting machine in Safe Mode, Block executable content from email/webmail, Block Office apps from creating executable content. ASR exclusions section. Controlled Folder Access: Not configured.',phase:'endpoint'},
+  {img:'phase2_screenshot_022.png',title:'Conditional Access — Require MFA for All Users (Report-Only)',desc:'Create new CA policy from templates — Review + Create: Policy name "Require multifactor authentication for all users", Policy state: Report only selected. Template name confirmed.',phase:'endpoint'},
+  {img:'phase2_screenshot_023.png',title:'Conditional Access — MFA for All Users Policy Details',desc:'CA policy review (scrolled): Assignments — Included: All users, Excluded: Current user + Directory Synchronization Accounts. Cloud apps: All apps. Grant: Require multifactor authentication.',phase:'endpoint'},
+  {img:'phase2_screenshot_024.png',title:'Conditional Access — MFA Policy Created Successfully',desc:'Conditional Access Overview with toast: "Successfully created Require multifactor authentication for all users." Full CA overview dashboard with Getting Started, Overview, Coverage, Tutorials tabs.',phase:'endpoint'},
+  {img:'phase2_screenshot_025.png',title:'Conditional Access — 5 Report-Only Policies Confirmed',desc:'CA Policies list showing 5 user-created policies, all Report-only: Block Legacy Authentication, Require MFA for Admin Roles, Require compliant or hybrid Azure AD joined device, Require multifactor authentication for admins, Require multifactor authentication for all users.',phase:'endpoint'},
+  {img:'phase2_screenshot_026.png',title:'Intune Devices Overview — Microsoft Learn Reference',desc:'Microsoft guided tour (regale.cloud demo environment): Intune Devices Overview showing multi-platform device management across Windows, iOS, macOS, Android. Reference screenshot for Intune dashboard layout.',phase:'endpoint'},
+  {img:'phase2_screenshot_027.png',title:'Intune Devices Overview — Platform Breakdown Reference',desc:'Microsoft guided tour continuation: Devices Overview with "Device management overview" tooltip explaining the dashboard panels — platform breakdown, compliance states, update ring status.',phase:'endpoint'},
+  {img:'phase2_screenshot_028.png',title:'macOS BYOD Compliance — MACOS_BYOD_COMPLIANCE_POLICY Review',desc:'Review + Create for MACOS_BYOD_COMPLIANCE_POLICY: BYOD policy for personal institutional access. System Integrity Protection required, OS min 14.0, password required, block simple passwords, min length 8.',phase:'endpoint'},
+  {img:'phase2_screenshot_029.png',title:'macOS BYOD Compliance — Scrolled Summary',desc:'MACOS_BYOD_COMPLIANCE_POLICY review scrolled: password alphanumeric, 3 non-alphanumeric chars required, expiry 90 days, reuse 3 previous. Actions: mark noncompliant immediately. Assignments: All users (Active).',phase:'endpoint'},
+  {img:'phase2_screenshot_031.png',title:'iOS Compliance — IOS_IPADOS_BYOD_COMPLIANCE_POLICY Review',desc:'Review + Create for IOS_IPADOS_BYOD_COMPLIANCE_POLICY: iOS/iPadOS BYOD compliance for personal institutional access. Jailbroken devices blocked, OS min 14.0, password required, simple passwords blocked, min length 8.',phase:'endpoint'},
+  {img:'phase2_screenshot_032.png',title:'iOS Compliance — Scrolled Summary',desc:'iOS compliance policy review scrolled: password alphanumeric, 4 non-alphanumeric chars, expiry 90 days, reuse 3 previous. Actions: mark noncompliant immediately. Assignments: All users (Active).',phase:'endpoint'},
+  {img:'phase2_screenshot_033.png',title:'Intune Admin Center Home — xyz.inc Tenant',desc:'Intune home for xyz.inc: Status shows Devices not in compliance: 0, Connector errors: 0, Config policies with errors: 0, Service health: Healthy, Account status: Active.',phase:'endpoint'},
+  {img:'phase2_screenshot_034.png',title:'Devices | Compliance — Windows Policy List',desc:'Intune Devices → Compliance → Policies tab: 2 Windows 10/11 compliance policies listed — WIN11-Faculty-Staff-Compliance-Policy and WIN11-Standard-User-Compliance (both modified 02/05/2026).',phase:'endpoint'},
+  {img:'phase2_screenshot_035.png',title:'Security Baseline — Configuration Settings (Defender)',desc:'Security Baseline for Windows 10 and later — Create profile, Configuration settings tab: Defender section expanded showing Archive Scanning (Allowed), Behavior Monitoring (Allowed), Cloud Protection (Allowed), Full Scan Removable Drives (Allowed), On Access Protection (Allowed), Realtime Monitoring (Allowed).',phase:'endpoint'},
+  {img:'phase2_screenshot_036.png',title:'Security Baseline — Full Settings Category List',desc:'Security baseline configuration settings (scrolled): Submit Samples Consent set. Categories listed: Device Guard, Device Lock, Dma Guard, Experience, Firewall, Kerberos, Lanman Server, Lanman Workstation, Local Policies Security Options, LSA, Microsoft App Store, Microsoft Edge, Privacy, Search, Smart Screen.',phase:'endpoint'},
+  {img:'phase2_screenshot_037.png',title:'Security Baseline — Meridian-WIN11-Enterprise-Security-Baseline Review',desc:'Review + Create step: Name "Meridian-WIN11-Enterprise-Security-Baseline", description covers endpoint protection and organizational security controls. Platform: Windows. All configuration setting categories listed.',phase:'endpoint'},
+  {img:'phase2_screenshot_038.png',title:'Security Baseline — Assignments & Final Categories',desc:'Baseline review scrolled to bottom categories: User Rights, Virtualization Based Technology, Wi-Fi Settings, Windows Hello For Business, Windows Ink Workspace, LAPS. Scope tags: Default. Assignments: All users (Active).',phase:'endpoint'},
+  {img:'phase2_screenshot_039.png',title:'Security Baseline — Meridian-WIN11-Enterprise-Security-Baseline Created',desc:'Security Baseline profiles list: Meridian-WIN11-Enterprise-Security-Baseline listed, Version 25H2, Assigned: Yes, Last modified: 21/05/2026 00:27. Toast: "Policy created successfully."',phase:'endpoint'},
+  {img:'phase2_screenshot_040.png',title:'Update Ring — Meridian-WIN11-Pilot-Update-Ring Basics',desc:'Create Update ring for Windows 10 and later — Basics tab: Name "Meridian-WIN11-Pilot-Update-Ring", description covers controlled feature rollouts and staged patch governance.',phase:'endpoint'},
+  {img:'phase2_screenshot_041.png',title:'Update Ring — Ring Settings Configured',desc:'Update ring settings: Microsoft product updates Allowed, Windows drivers Blocked, Quality update deferral 3 days, Feature update deferral 7 days, Do not upgrade W10 to W11, Uninstall period 10 days. Auto install at maintenance time. Active hours start 8 AM.',phase:'endpoint'},
+  {img:'phase2_screenshot_042.png',title:'Update Ring — Review + Create Summary',desc:'Review + Create for Meridian-WIN11-Pilot-Update-Ring: General Availability channel, quality deferral 3 days, feature deferral 7 days, auto install at maintenance time, active hours 8 AM–5 PM. Assignments: All users.',phase:'endpoint'},
+  {img:'phase2_screenshot_043.png',title:'Update Ring — Assignments Review',desc:'Update ring review scrolled to Assignments section: Included groups: All users (Active). No excluded groups configured.',phase:'endpoint'},
+  {img:'phase2_screenshot_044.png',title:'Update Ring — Meridian-WIN11-Pilot-Update-Ring Active',desc:'Devices | Windows updates: Meridian-WIN11-Pilot-Update-Ring listed. Quality Running, Feature Running, deferral 3/7 days. Toast: "Update Ring successfully assigned to Meridian-WIN11-Pilot-Update-Ring."',phase:'endpoint'},
+
+  // ── POWERSHELL OPS (18 shots) ──
+  {img:'phase2_screenshot_045.png',title:'macOS Desktop — PowerShell Setup Session',desc:'macOS desktop showing Homebrew terminal: searching for PowerShell cask, warning that powershell@preview is deprecated. Setup context for the Graph PowerShell session used in Phase 2 endpoint validation.',phase:'powershell'},
+  {img:'phase2_screenshot_046.png',title:'Homebrew — Installing PowerShell via Tap',desc:'macOS terminal: brew install powershell/tap/powershell after cask deprecation. Tapping powershell/homebrew-tap, cloning 2880 objects. Error about :high_sierra dependency, falling back to powershell@preview (73.2 MB downloaded).',phase:'powershell'},
+  {img:'phase2_screenshot_047.png',title:'Homebrew — PowerShell Download + Install',desc:'Homebrew download complete: Cask powershell@preview (7.7.0-preview.1) downloaded and verified 73.2 MB. "Running installer for powershell@preview with sudo..." — installation in progress.',phase:'powershell'},
+  {img:'phase2_screenshot_048.png',title:'PowerShell 7.7 — Installation Confirmed',desc:'PowerShell successfully installed. pwsh-preview launched. Get-Date returns Thursday, 21 May 2026 12:37:44 AM. Get-Host confirms version 7.7.0-preview.1. $PSVersionTable shows PSVersion 7.7.0-preview.1, PSEdition Core, OS macOS 26.5.0.',phase:'powershell'},
+  {img:'phase2_screenshot_049.png',title:'PowerShell — Process Inventory (Get-Process by CPU)',desc:'PS terminal: $PSVersionTable confirmed. Get-Process sorted by CPU descending: Dropbox Helper GPU, Dropbox, Brave Browser Helper, Brave Browser, DropboxFileProvider — top 10 processes by CPU utilization.',phase:'powershell'},
+  {img:'phase2_screenshot_050.png',title:'PowerShell — Meridian Endpoint Operations Console',desc:'PS terminal: ifconfig output confirming en0 interface at 10.88.111.3 (active). Get-Process piped to Export-Csv Meridian-ProcessReport.csv. Write-Host outputs "Meridian Institute Endpoint Operations Console" in green — session banner active.',phase:'powershell'},
+  {img:'phase2_screenshot_051.png',title:'PowerShell — Network Interface Validation + CSV Export',desc:'PS terminal: ifconfig network interfaces visible (en0, awd10, utun0-5). Process report exported to Meridian-ProcessReport.csv. Meridian Institute Endpoint Operations Console banner confirmed.',phase:'powershell'},
+  {img:'phase2_screenshot_052.png',title:'PowerShell — Loaded Cmdlet Catalog (Set/Show/Sort through Write)',desc:'PS terminal: Get-Command output listing all loaded cmdlets — Set-*, Show-*, Sort-*, Start-*, Stop-*, Test-*, Trace-*, Unblock-*, Uninstall-*, Update-*, Wait-*, Write-* cmdlets visible from Microsoft.PowerShell modules.',phase:'powershell'},
+  {img:'phase2_screenshot_053.png',title:'PowerShell — Get-ComputerInfo Error + Process Report',desc:'PS terminal: Get-ComputerInfo fails (not recognized in PS Core on macOS). Get-Process sorted by WorkingSet: Brave Browser Helper (Renderer), Brave Browser, Dropbox, pwsh, DropboxFileProvider — top 10.',phase:'powershell'},
+  {img:'phase2_screenshot_054.png',title:'PowerShell — Microsoft.Graph.Identity.Governance Module',desc:'PS terminal: Get-MgIdentityGovernanceLifecycleWorkflow function catalog visible — large set of lifecycle workflow functions from Microsoft.Graph.Identity.Governance v2.32.0. Process management cmdlets follow.',phase:'powershell'},
+  {img:'phase2_screenshot_055.png',title:'PowerShell — Get-Help Get-Process',desc:'PS terminal: Get-Help Get-Process output showing NAME, SYNTAX (6 parameter sets), ALIASES (gps), REMARKS with help download instructions. Get-Process sorted by CPU returning Dropbox/Brave processes.',phase:'powershell'},
+  {img:'phase2_screenshot_056.png',title:'PowerShell — Process Report (CPU + WorkingSet)',desc:'PS terminal: Get-Help Get-Process REMARKS. Get-Process CPU sort: Dropbox Helper GPU, Dropbox, Brave Browser, DropboxFileProvider, AdGuard Mini. WorkingSet sort with Name, CPU, WorkingSet columns follows.',phase:'powershell'},
+  {img:'phase2_screenshot_057.png',title:'PowerShell — WorkingSet Process Sort + Memory Report',desc:'PS terminal: Get-Process WorkingSet descending: Brave Browser Helper (Renderer) 339MB, Brave Browser 1355MB, Dropbox 2421MB, pwsh 21MB. Second query formats Name, CPU, WorkingSet columns.',phase:'powershell'},
+  {img:'phase2_screenshot_058.png',title:'PowerShell — Connect-MgGraph Authentication (Device Code)',desc:'PS terminal: Connect-MgGraph with User.Read.All, Group.Read.All, DeviceManagementManagedDevices.Read.All scopes via DeviceCode flow. Code F6DKZ6RDP authenticated. "Welcome to Microsoft Graph!" Get-MgContext confirms TenantId 31faeb7a, Account rahat.it.lab@nirjala.',phase:'powershell'},
+  {img:'phase2_screenshot_059.png',title:'PowerShell — Get-MgUser: First 10 Tenant Users',desc:'PS terminal: Connect-MgGraph success confirmed. Get-MgUser -Top 10 returns: Aisha Rahman, Alex Johnson, Ava Lewis, Bill Clinton, Barak Obama, Chloe Martin, Daniel Kim, Elijah Young, Emma Davis, Emily Parker — all from nirjala.onmicrosoft.com.',phase:'powershell'},
+  {img:'phase2_screenshot_060.png',title:'PowerShell — Device + Group Queries (Graph API)',desc:'PS terminal: Get-MgDevice and Get-MgDeviceManagementManagedDevice queries with sorting and filtering. Get-MgUserAuthenticationMethod returns 403 (scope not included). Get-MgGroup -Top 15 returns: Students, xyz.inc, Security Operations (Dynamic), Students 2 (Dynamic), Professors (Dynamic), IT Operations (Dynamic), All Company (Unified), NBS IT Portal (Unified).',phase:'powershell'},
+  {img:'phase2_screenshot_061.png',title:'PowerShell — Group Filter + Directory Role Enumeration',desc:'PS terminal: Get-MgGroup filtered for Security Operations returns group ID and DynamicMembership type confirmed. Get-MgDirectoryRole lists all active directory roles: Teams Admin, Global Reader, Billing Admin, User Admin, Exchange Admin, Helpdesk Admin, Global Admin, Service Support Admin, SharePoint Admin.',phase:'powershell'},
+  {img:'phase2_screenshot_062.png',title:'PowerShell — Security Operations Group + Role Details',desc:'PS terminal: Get-MgGroup filter Security Operations confirmed (7bf3c317, DynamicMembership). Get-MgDirectoryRole lists roles with descriptions and RoleTemplateIds — all admin roles assigned in Phase 2 visible.',phase:'powershell'},
+
+  // ── MICROSOFT PURVIEW (24 shots) ──
+  {img:'phase2_screenshot_065.png',title:'Compliance Manager — Create Alert Policy (Conditions)',desc:'Purview Compliance Manager → Create a policy: Conditions step. "Choose conditions for the policy" — Improvement Action Activity category with Add sub-conditions button.',phase:'purview'},
+  {img:'phase2_screenshot_066.png',title:'Compliance Manager — Add Sub-Conditions Panel',desc:'"Add sub-conditions" panel: 5 available conditions — Assignment change, Evidence change, Implementation status change, Score change, Test status change. All available for selection.',phase:'purview'},
+  {img:'phase2_screenshot_067.png',title:'Compliance Manager — 3 Conditions Selected',desc:'Conditions step with 3 sub-conditions selected under Improvement Action Activity: Assignment change, Evidence change, Implementation status change.',phase:'purview'},
+  {img:'phase2_screenshot_068.png',title:'Compliance Manager — HIGH_RISK_DATA_ACCESS_ALERT Review',desc:'Create policy Review and finish: Name HIGH_RISK_DATA_ACCESS_ALERT. Description: Enterprise alert to detect suspicious/unauthorized access to sensitive institutional data. Conditions: Assignment, Implementation, Score changes. Recipients: Mia Allen, Md Rahat Islam Anik.',phase:'purview'},
+  {img:'phase2_screenshot_069.png',title:'Compliance Manager — Alert Policy Created Successfully',desc:'"New policy created" confirmation page — all wizard steps show green checkmarks: Name and description, Conditions, Outcomes, Alert recipients, Finish.',phase:'purview'},
+  {img:'phase2_screenshot_070.png',title:'Compliance Manager — Alert Policies List (Default Policy)',desc:'Compliance Manager Policies: HIGH_RISK_DATA_ACC... (Active, Medium, May 21) and Compliance Manager Default Alert Policy (Active, Medium, Apr 21 2022). Side panel: Default policy details — Score change trigger, single event, Global Administrator recipient.',phase:'purview'},
+  {img:'phase2_screenshot_071.png',title:'Compliance Manager — HIGH_RISK_DATA_ACCESS_ALERT Detail',desc:'Policies list with HIGH_RISK_DATA_ACCESS_ALERT selected. Side panel: Improvement Action Activity conditions (Assignment, Implementation, Score changes), Actions (generate alerts, send to recipients, notify per event). Recipients: Mia Allen, Md Rahat Islam Anik.',phase:'purview'},
+  {img:'phase2_screenshot_072.png',title:'Compliance Manager — 3 Alert Policies Active',desc:'Policies list with 3 active policies: STUDENT_RECORDS_A... (May 21), HIGH_RISK_DATA_ACC... (May 21), Compliance Manager Default (Apr 22). Side panel: STUDENT_RECORDS_ACCESS_ALERT — monitors suspicious access to student records, Assignment + Evidence + Score conditions, Recipient: Md Rahat Islam Anik.',phase:'purview'},
+  {img:'phase2_screenshot_073.png',title:'Compliance Manager — Score Overview (56%)',desc:'Compliance Manager Overview → Reports: Compliance Score 56%. Total points: 12,643/22,416. Your points: 235/9,915. Microsoft managed: 12,408/12,501. Recommendations: Achieve compliant Azure deployments, Customize assessment template.',phase:'purview'},
+  {img:'phase2_screenshot_074.png',title:'Compliance Manager — NIST 800-137 Assessment (79% Complete)',desc:'NIST_800_137_ENTERPRISE_GOVERNANCE_ASSESSMENT: 79% complete. Microsoft 365 service: 1712/2163 (79%). Your points achieved: 0/451. Microsoft managed: 1,712/1,712.',phase:'purview'},
+  {img:'phase2_screenshot_075.png',title:'DLP — STUDENT_PII Policy Locations (All Workloads)',desc:'DLP Create policy — Locations step: Exchange email, SharePoint sites, OneDrive accounts, Teams chat, Devices, Instances, On-premises repositories — all enabled. Full M365 coverage for student PII protection.',phase:'purview'},
+  {img:'phase2_screenshot_076.png',title:'DLP — Create Rule: Canadian Sensitive Info Types',desc:'DLP Create rule for STUDENT_PII_PROTECTION_POLICY: Sensitive info types added — Canada Personal Health Identification Number (PHIN), Canada Physical Addresses, Canada Social Insurance Number, All Credential Types — all Medium confidence, instance count 1.',phase:'purview'},
+  {img:'phase2_screenshot_077.png',title:'DLP — STUDENT_PII_PROTECTION_POLICY Rule Named',desc:'DLP Create rule: Rule name STUDENT_PII_PROTECTION_POLICY. Description: Enterprise DLP to detect, monitor, protect student PII across Exchange, SharePoint, OneDrive, Teams — supports institutional privacy governance and Zero Trust data protection.',phase:'purview'},
+  {img:'phase2_screenshot_078.png',title:'DLP — Advanced DLP Rules: STUDENT_PII Rule Active',desc:'Customize advanced DLP rules: STUDENT_PII_PROTECTION_POLICY rule listed (Status: On). Conditions: Canada PHIN, Canada SIN, All Credential Types. Actions: Send alerts to Administrator.',phase:'purview'},
+  {img:'phase2_screenshot_079.png',title:'DLP — STUDENT_PII Policy Review and Finish',desc:'DLP Create policy Review: STUDENT_PII_PROTECTION_POLICY, custom policy. Locations: Exchange, SharePoint, OneDrive, Teams, Devices, Microsoft Defender for Cloud Apps, On-premises repositories. Mode: Run in simulation mode.',phase:'purview'},
+  {img:'phase2_screenshot_080.png',title:'DLP — Client Error: All Credential Types + OnPremisesScanner',desc:'DLP Review and finish — Client Error: "All Credential Types is not supported for OnPremisesScanner location." Resolved by removing On-premises repositories scope or excluding the info type. Real-world troubleshooting documented.',phase:'purview'},
+  {img:'phase2_screenshot_081.png',title:'DLP — EVERYONE_STANDARD Policy Locations (Exchange/SharePoint/Teams)',desc:'DLP Create policy — Locations for EVERYONE_STANDARD_DLP_POLICY: Exchange email, SharePoint sites, OneDrive, Teams chat, Instances enabled. Devices and On-premises not included (scoped for standard org users).',phase:'purview'},
+  {img:'phase2_screenshot_082.png',title:'DLP — Rule Actions: Policy Tips and User Overrides',desc:'DLP Create rule scrolled to actions: Policy tips section. User overrides: Allow users to override policy restrictions in Exchange, SharePoint, OneDrive, Teams. Incident reports: Send alert to admins on rule match (On).',phase:'purview'},
+  {img:'phase2_screenshot_083.png',title:'DLP — Incident Report Configuration',desc:'DLP Create rule — Incident reports: Email incident reports enabled, send to SiteAdmin. Include: who modified content, sensitive content type, severity, matched content, containing item. Priority: 0.',phase:'purview'},
+  {img:'phase2_screenshot_084.png',title:'DLP — Block External Sharing of Personal Info Rule',desc:'Advanced DLP rules: "Block External Sharing of Personal Info" rule (On). Conditions: Canada Bank Account Number, Canada Driver\'s License Number, Canada SIN — content shared outside org. Actions: Notify users, restrict access, send incident reports, send alerts.',phase:'purview'},
+  {img:'phase2_screenshot_085.png',title:'DLP — EVERYONE_STANDARD_DLP_POLICY Review',desc:'DLP Review: EVERYONE_STANDARD_DLP_POLICY — custom policy for all users (students, faculty, professors, staff). Detects and blocks external sharing of Canada SIN, Bank Account, Driver\'s License. Locations: Exchange, SharePoint, OneDrive, Teams, Defender for Cloud Apps. Mode: Simulation.',phase:'purview'},
+  {img:'phase2_screenshot_086.png',title:'DLP — Policies Overview: 5 Active Policies',desc:'DLP Policies list: Default Office 365 DLP (On), Default policy for Teams (On), Default policy for devices (On), STUDENT_PII_PROTECTION_POLICY (In simulation with notifications, May 21 3:47 PM), EVERYONE_STANDARD_DLP_POLICY (In simulation with notifications, May 21 4:02 PM).',phase:'purview'},
+  {img:'phase2_screenshot_087.png',title:'Data Lifecycle — Create Retention Label (Label Settings)',desc:'Purview Data Lifecycle Management → Create retention label — Label Settings step: "Retain items forever or for a specific period" selected. Other options: Enforce actions after specific period, Just label items.',phase:'purview'},
+  {img:'phase2_screenshot_088.png',title:'Data Lifecycle — Universal Retention Label: 7 Years Then Delete',desc:'Retention label Review and finish: Name "Universal - Keep 7 Years Then Delete". User description: items kept 7 years then auto-deleted. Admin description: standard for all university content (student records, faculty files, admin docs). Retention period: 7 years. Action: Retain and Delete. Based on: when created.',phase:'purview'},
+
+  // ── IDENTITY & CONDITIONAL ACCESS (16 shots) ──
+  {img:'phase2_screenshot_089.png',title:'Entra — Helpdesk Administrator: Liam Thomas Assigned',desc:'Microsoft Entra admin center → Helpdesk Administrator | Assignments: Liam Thomas (liam.thomas@nirjala.onmicrosoft.com) assigned as User with Directory scope.',phase:'identity'},
+  {img:'phase2_screenshot_090.png',title:'Entra — Helpdesk Administrator: Group + User Assigned',desc:'Helpdesk Administrator | Assignments: Both Helpdesk-Level1 (Group, Directory scope) and Liam Thomas (User, Directory scope) confirmed — least-privilege RBAC delegation complete.',phase:'identity'},
+  {img:'phase2_screenshot_091.png',title:'Entra — Identity Secure Score: 76.30%',desc:'Entra ID → Recommendations tab: Identity Secure Score 76.30% (refreshes every 24 hours). Score history chart shows improvement trend through May 2026. 6 total recommendations — all Security category.',phase:'identity'},
+  {img:'phase2_screenshot_092.png',title:'Entra — SSPR Enabled for All Users',desc:'Password reset | Properties: Self service password reset enabled set to "All". Toast: "Password reset policy saved — Changes to password reset policy were saved successfully."',phase:'identity'},
+  {img:'phase2_screenshot_093.png',title:'Entra — SSPR Authentication Methods: Security Questions',desc:'Select security questions: 8 predefined questions available. Warning: Security Questions retiring March 2027. Custom: No security questions configured. Admins must migrate to supported auth methods before retirement.',phase:'identity'},
+  {img:'phase2_screenshot_094.png',title:'Entra — Risky Users: All 27 No Risk',desc:'Security | Risky users: 27 total users — all No Risk (solid green donut chart). Zero High Risk, Medium Risk, or Low Risk users. New risky users per day chart shows 0 activity May 14-20.',phase:'identity'},
+  {img:'phase2_screenshot_095.png',title:'Entra — SSPR Notifications Configured',desc:'Password reset | Notifications: Notify users on password resets: Yes, Notify all admins when other admins reset password: Yes. Toast: "Failed to save password reset policy — Unexpected error." Save retry needed.',phase:'identity'},
+  {img:'phase2_screenshot_096.png',title:'Entra — MFA Phone Call Settings Updated',desc:'Multifactor authentication | Phone call settings: MFA caller ID number set to 6478551938 (Canadian number). Toast: "Updating settings — Successfully updated settings."',phase:'identity'},
+  {img:'phase2_screenshot_097.png',title:'Conditional Access — Require MDM Compliant Device Created',desc:'CA Overview — Toast: "Successfully created Require MDM-enrolled and compliant device to access cloud apps for all users (Preview)." Policy Summary: 0 Enabled, 5 Report-only policies.',phase:'identity'},
+  {img:'phase2_screenshot_098.png',title:'Conditional Access — Require MFA for All Users Created',desc:'CA Overview — Toast: "Successfully created Require multifactor authentication for all users." Policy Summary showing 0 Enabled, 5 Report-only policies in the tenant.',phase:'identity'},
+  {img:'phase2_screenshot_099.png',title:'Entra — MFA-Required-Users Group Created',desc:'Groups | Overview — Toast: "Successfully created group MFA-Required-Users." Tenant now has: Total 9 groups, Dynamic 4, M365 groups 3, Security groups 6, Cloud groups 9, On-premises 0.',phase:'identity'},
+  {img:'phase2_screenshot_100.png',title:'Conditional Access — MFA-Required-Users Selected for CA Scope',desc:'"Select users and groups" panel for CA policy: MFA-Required-Users group checked (highlighted). 37 results visible: IT Operations, Barak Obama, MFA-Required-Users (selected), Bill Clinton, NBS IT Portal, Chloe Martin, Professors, Daniel Kim...',phase:'identity'},
+  {img:'phase2_screenshot_101.png',title:'Conditional Access — Grant: Require MFA Selected',desc:'New CA policy with Grant panel open: Grant access selected, "Require multifactor authentication" checked. Policy state: Report-only. Error shown: "You must configure either the Grant or Session section" — Grant being configured.',phase:'identity'},
+  {img:'phase2_screenshot_102.png',title:'Conditional Access — Require MFA for Standard Users Created',desc:'CA Overview — Toast: "Successfully created Require MFA for Standard Users." Policy snapshot now shows 0 Enabled, 7 Report-only policies — growing CA coverage.',phase:'identity'},
+  {img:'phase2_screenshot_103.png',title:'Conditional Access — 8 User-Created Policies (Full List)',desc:'CA | Policies list: 8 user-created policies all Report-only — Block Legacy Authentication, Require MDM-enrolled and compliant device, Require MFA for Admin Roles, Require MFA for Standard Users, Require compliant or hybrid Azure AD joined device, Require MFA for admins, Require MFA for all users (×2).',phase:'identity'},
+  {img:'phase2_screenshot_104.png',title:'Conditional Access — 8 Policies with Creation Dates',desc:'CA Policies list (scrolled right) showing 8 Report-only policies with creation and modification dates — spanning May 2 through May 21, 2026. Full CA governance posture documented.',phase:'identity'},
+
+  // ── EXCHANGE ONLINE (15 shots) ──
+  {img:'phase2_screenshot_064.png',title:'MXToolbox SuperTool — Mail Security Reference',desc:'MXToolbox SuperTool homepage with "DNS lookup" in the domain field. Reference tool used for MX record verification, DMARC analysis, blacklist checking, and email health diagnostics for Exchange Online governance.',phase:'exchange'},
+  {img:'phase2_screenshot_105.png',title:'Exchange — Add a Shared Mailbox Panel (Blank)',desc:'Exchange admin center home for xyz.inc with "Add a shared mailbox" panel open — blank form showing Display name, Email address, and Alias fields ready for IT Helpdesk mailbox creation.',phase:'exchange'},
+  {img:'phase2_screenshot_106.png',title:'Exchange — Shared Mailbox Email Address Configured',desc:'"Add a shared mailbox" panel: Email address field filled with "helpdesk" — configuring helpdesk@[domain] as the primary SMTP address for the IT Helpdesk shared mailbox.',phase:'exchange'},
+  {img:'phase2_screenshot_107.png',title:'Exchange — Manage Mailboxes: IT Helpdesk Appears',desc:'Exchange Manage mailboxes — 22 items listed. IT Helpdesk visible as SharedMailbox type at helpdesk@nirjala.onmicrosoft.com, alongside all 21 user mailboxes from the Meridian tenant.',phase:'exchange'},
+  {img:'phase2_screenshot_108.png',title:'Exchange — IT Helpdesk Mailbox Details',desc:'IT Helpdesk selected in mailbox list — General tab: Display name IT Helpdesk, Alias helpdesk, User ID helpdesk@nirjala.onmicrosoft.com. Mailbox usage: 0.02 MB / 49.5 GB (0.00% used). Last logon: not logged in yet.',phase:'exchange'},
+  {img:'phase2_screenshot_109.png',title:'Exchange — IT Helpdesk Shared Mailbox Confirmed',desc:'IT Helpdesk mailbox details panel confirming: Shared mailbox type, helpdesk alias, GAL visibility set to No. Email addresses: helpdesk@nirjala.onmicrosoft.com. Default email app settings applied.',phase:'exchange'},
+  {img:'phase2_screenshot_110.png',title:'Exchange — Transport Rules: Add a Rule Dropdown',desc:'Mail flow → Rules: "Add a rule" dropdown open showing all available rule templates — Create a new rule, Apply O365 Message Encryption, Apply custom OME branding, Apply disclaimers, Filter by size, Modify messages, Restrict by sender/recipient, Send to moderator. 0 existing rules.',phase:'exchange'},
+  {img:'phase2_screenshot_111.png',title:'Exchange — Transport Rules: Empty Baseline',desc:'Mail flow → Rules page: 0 items listed ("No data available for given query"). "Add a rule" dropdown visible showing rule type options — baseline state before Block External Auto-Forwarding rule creation.',phase:'exchange'},
+  {img:'phase2_screenshot_112.png',title:'Exchange — Block Auto-Forwarding: Recipient Location Set',desc:'New transport rule — "Block External Auto-Forwarding" rule being built. Conditions: Message type is AutoForward. Second condition: recipient location — "Outside the organization" selected in the picker panel.',phase:'exchange'},
+  {img:'phase2_screenshot_113.png',title:'Exchange — Block Auto-Forwarding: Action and Rejection',desc:'Transport rule conditions configured: AutoForward message type + recipient NotInOrganization. Do the following: Block the message / Reject with explanation. "Specify rejection reason" panel open (blank — text being entered).',phase:'exchange'},
+  {img:'phase2_screenshot_114.png',title:'Exchange — Rejection Message: Security Policy Text',desc:'"Specify rejection reason" field filled: "External auto-forwarding is blocked by organizational security policy" — the message users receive when attempting to auto-forward email externally.',phase:'exchange'},
+  {img:'phase2_screenshot_115.png',title:'Exchange — Transport Rule: Settings + Activation',desc:'Set rule settings — Rule mode: Test with Policy Tips (selected). Severity: Medium. Activate this rule on: 5/21/2026 at 5:00 PM. Match sender address in message: Header.',phase:'exchange'},
+  {img:'phase2_screenshot_116.png',title:'Exchange — Block External Auto-Forwarding: Review and Finish',desc:'Transport rule Review and finish: Rule name "Block External Auto-Forwarding". Comments explain data exfiltration risk reduction. Conditions: AutoForward + NotInOrganization. Action: Reject with "External auto-forwarding is blocked by organizational security policy." Mode: AuditAndNotify. Severity: Medium.',phase:'exchange'},
+  {img:'phase2_screenshot_117.png',title:'Exchange — Block External Auto-Forwarding Rule Active',desc:'Rules page: 1 item — Block External Auto-F... Status: Disabled (turns on from Rules page after creation), Priority 0, 720 bytes, Configuration supported.',phase:'exchange'},
+  {img:'phase2_screenshot_118.png',title:'Exchange — Transport Rule Final State Confirmed',desc:'Rules page final state: Block External Auto-Forwarding rule confirmed — Disabled status (test mode), Priority 0, Size 720 bytes, Configuration supported. Mail security governance documented.',phase:'exchange'},
+];
+
+/* ── RENDER EVIDENCE ── */
+const IMG_BASE = 'assets/screenshots/';
+const grid = document.getElementById('evGrid');
+let lbIdx = 0;
+let filteredEvidence = [...EVIDENCE];
+
+const phaseLabels = {
+  endpoint:'Endpoint',purview:'Purview',identity:'Identity &amp; CA',exchange:'Exchange',powershell:'PowerShell',general:'General'
+};
+
+function renderGrid(phase){
+  filteredEvidence = phase === 'all' ? [...EVIDENCE] : EVIDENCE.filter(e => e.phase === phase);
+  grid.innerHTML = filteredEvidence.map((e,i) => `
+    <div class="ev-card reveal" data-phase="${e.phase}" data-idx="${i}">
+      <div class="ev-img">
+        <img src="${IMG_BASE}${e.img}" alt="${e.title}" loading="lazy">
+      </div>
+      <div class="ev-body">
+        <span class="ev-tag" data-phase="${e.phase}">${phaseLabels[e.phase]||'Evidence'}</span>
+        <h3>${e.title}</h3>
+        <p>${e.desc}</p>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+  grid.querySelectorAll('.ev-card').forEach(card => {
+    card.addEventListener('click', () => openLB(+card.dataset.idx));
+  });
+}
+
+/* ── TABS ── */
+document.querySelectorAll('.ev-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.ev-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderGrid(tab.dataset.phase);
+  });
+});
+
+/* ── LIGHTBOX ── */
+const lb = document.getElementById('lb');
+const lbImg = document.getElementById('lbImg');
+const lbTitle = document.getElementById('lbTitle');
+const lbDesc = document.getElementById('lbDesc');
+const lbCounter = document.getElementById('lbCounter');
+
+function openLB(idx){
+  lbIdx = idx;
+  updateLB();
+  lb.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLB(){
+  lb.classList.remove('open');
+  document.body.style.overflow='';
+}
+function updateLB(){
+  const e = filteredEvidence[lbIdx];
+  lbImg.src = IMG_BASE+e.img;
+  lbImg.alt = e.title;
+  lbTitle.textContent = e.title;
+  lbDesc.textContent = e.desc;
+  lbCounter.textContent = (lbIdx+1)+' / '+filteredEvidence.length;
+}
+document.getElementById('lbClose').addEventListener('click', closeLB);
+document.getElementById('lbPrev').addEventListener('click', () => {
+  lbIdx=(lbIdx-1+filteredEvidence.length)%filteredEvidence.length; updateLB();
+});
+document.getElementById('lbNext').addEventListener('click', () => {
+  lbIdx=(lbIdx+1)%filteredEvidence.length; updateLB();
+});
+lb.addEventListener('click', e => { if(e.target===lb) closeLB(); });
+document.addEventListener('keydown', e => {
+  if(!lb.classList.contains('open')) return;
+  if(e.key==='Escape') closeLB();
+  if(e.key==='ArrowLeft'){ lbIdx=(lbIdx-1+filteredEvidence.length)%filteredEvidence.length; updateLB(); }
+  if(e.key==='ArrowRight'){ lbIdx=(lbIdx+1)%filteredEvidence.length; updateLB(); }
+});
+
+/* ── CODE TABS ── */
+document.querySelectorAll('.code-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.code-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.code-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('tab-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+/* ── SCROLL REVEAL ── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── ANIMATED COUNTERS ── */
+function animateCount(el){
+  const target = +el.dataset.target;
+  const suffix = el.dataset.suffix || '';
+  const dur = 1600;
+  const start = performance.now();
+  const step = now => {
+    const p = Math.min((now-start)/dur,1);
+    const ease = 1-Math.pow(1-p,4);
+    el.textContent = Math.round(target*ease)+suffix;
+    if(p<1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+const scoreObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(!e.isIntersecting) return;
+    e.target.querySelectorAll('.count').forEach(animateCount);
+    const fill = e.target.querySelector('.score-fill');
+    if(fill) setTimeout(() => fill.style.width = fill.dataset.w+'%', 200);
+    scoreObs.unobserve(e.target);
+  });
+},{threshold:.3});
+document.querySelectorAll('.stats-card').forEach(c => scoreObs.observe(c));
+
+/* ── INIT ── */
+renderGrid('all');
+</script>
+</body>
+</html>
