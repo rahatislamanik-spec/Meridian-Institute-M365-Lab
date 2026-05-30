@@ -140,3 +140,18 @@ Meridian-Institute-M365-Lab/
 ---
 
 *Independently designed and executed as a self-directed enterprise simulation — replicating the real-world Microsoft 365 administration challenges faced by IT Operations and Cloud Security teams in mid-size organizations. Every configuration was planned, deployed, validated, and documented without guidance, demonstrating job-ready competency across the Microsoft 365 ecosystem.*
+
+---
+
+## 🌐 Portfolio Ecosystem
+
+This project is part of a 4-repo enterprise IT portfolio covering the full IT lifecycle.
+
+| Layer | Project | Focus |
+|---|---|---|
+| 01 — Network Foundation | [Enterprise IT Network Diagnostics Toolkit](https://github.com/rahatislamanik-spec/Enterprise-IT-Network-Diagnostics-Toolkit) | DNS · Connectivity · Network Diagnostics |
+| 02 — User Lifecycle | [Project Arabesque](https://github.com/rahatislamanik-spec/Project-Arabesque) | Onboarding · Offboarding · M365 Automation |
+| 03 — Identity & Security | [Enterprise IT Security Operations Toolkit](https://github.com/rahatislamanik-spec/Enterprise-IT-Security-Operations-Toolkit) | Entra ID · Intune · Defender · Zero Trust |
+| 04 — M365 Operations | **You are here** | Exchange · Teams · SharePoint · Purview |
+
+👉 [View Full Portfolio](https://rahatislamanik-spec.github.io/IT-Portfolio-Rahat-Islam-Anik/)
