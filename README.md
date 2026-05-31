@@ -145,7 +145,7 @@ Meridian-Institute-M365-Lab/
 
 ## 🌐 Portfolio Ecosystem
 
-This project is part of a 4-repo enterprise IT portfolio covering the full IT lifecycle.
+This project is part of a multi-repo enterprise IT portfolio covering the full IT lifecycle.
 
 | Layer | Project | Focus |
 |---|---|---|
