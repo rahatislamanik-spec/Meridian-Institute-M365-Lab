@@ -1,6 +1,6 @@
 # Meridian Institute — Microsoft 365 Security Operations Lab
 
-> A two-phase, fully documented Microsoft 365 enterprise simulation built in a real developer tenant — covering identity governance, endpoint management, compliance controls, Conditional Access, and PowerShell automation across 27 managed users and 4 admin centers.
+> A three-phase, fully documented Microsoft 365 enterprise simulation built in a real developer tenant — covering identity governance, endpoint management, compliance controls, Conditional Access, and PowerShell automation across 27 managed users and 4 admin centers.
 
 **Author:** Md Rahat Islam Anik · [linkedin.com/in/rahatislamanik](https://linkedin.com/in/rahatislamanik) · [github.com/rahatislamanik-spec](https://github.com/rahatislamanik-spec)
 
@@ -107,7 +107,13 @@ Meridian-Institute-M365-Lab/
 │   ├── index.html
 │   └── assets/
 │       └── screenshots/
-└── phase-2/
+├── phase-2/
+    ├── index.html
+    └── assets/
+└── phase-3-defender-xdr/
+    ├── scripts/
+    ├── reports/
+    └── screenshots/
     ├── index.html
     └── assets/
         └── screenshots/
