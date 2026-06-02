@@ -12,6 +12,10 @@
 |---|---|---|
 | Phase 1 | Identity, Users, Groups, PowerShell, Sign-In Security | [View Phase 1 →](https://rahatislamanik-spec.github.io/Meridian-Institute-M365-Lab/phase-1/) |
 | Phase 2 | Endpoint, Conditional Access, Purview DLP, Exchange | [View Phase 2 →](https://rahatislamanik-spec.github.io/Meridian-Institute-M365-Lab/phase-2/) |
+| Phase 3 | Defender XDR Security Audit | [View Phase 3 →](https://rahatislamanik-spec.github.io/Meridian-Institute-M365-Lab/phase-3-defender-xdr/) |
+| Phase 4 | User Onboarding Automation — Entra ID, Graph PowerShell, M365 Licensing | [View Phase 4 →](https://rahatislamanik-spec.github.io/Meridian-Institute-M365-Lab/phase-4-user-onboarding-automation/) |
+| Phase 5 | Endpoint Compliance & Conditional Access Audit | [View Phase 5 →](https://rahatislamanik-spec.github.io/Meridian-Institute-M365-Lab/phase-5-endpoint-compliance/) |
+| Phase 6 | Zero-Touch Deployment Architecture | [View Phase 6 →](https://rahatislamanik-spec.github.io/Meridian-Institute-M365-Lab/phase-6-zero-touch-deployment/) |
 
 ---
 
@@ -77,24 +81,72 @@ The goal: prove hands-on competency across the exact tooling required for IT Sup
 - Documented Identity Secure Score: **76.30%**
 
 **Microsoft Purview — Compliance & Data Governance**
-- Created 2 custom DLP policies in Simulation mode:
-  - `STUDENT_PII_PROTECTION_POLICY` — Canada PHIN, SIN, Physical Addresses across Exchange, SharePoint, OneDrive, Teams, Devices
-  - `EVERYONE_STANDARD_DLP_POLICY` — Canada SIN, Bank Account, Driver's License with external sharing block
-- Created Compliance Manager alert policies: `HIGH_RISK_DATA_ACCESS_ALERT` and `STUDENT_RECORDS_ACCESS_ALERT`
-- Reviewed NIST 800-137 Enterprise Governance Assessment (79% complete, 1712/2163 Microsoft-managed points)
+- Created 2 custom DLP policies in Simulation mode
+- Created Compliance Manager alert policies
+- Reviewed NIST 800-137 Enterprise Governance Assessment
 - Documented tenant Compliance Score: **56%**
 - Created retention label: `Universal - Keep 7 Years Then Delete`
 
 **Exchange Online — Mail Security**
-- Provisioned IT Helpdesk shared mailbox (`helpdesk@nirjala.onmicrosoft.com`)
-- Created `Block External Auto-Forwarding` transport rule to prevent data exfiltration via email forwarding
+- Provisioned IT Helpdesk shared mailbox
+- Created `Block External Auto-Forwarding` transport rule
 - Documented mail security stack: anti-spam, anti-malware, Safe Attachments, Safe Links, DKIM
 
-**PowerShell Validation**
-- Installed PowerShell 7.7 (preview) via Homebrew on macOS
-- Connected to Microsoft Graph with `User.Read.All`, `Group.Read.All`, `DeviceManagementManagedDevices.Read.All` scopes
-- Queried tenant users, groups, devices, and directory roles via Graph API
-- Exported process and system reports from the Meridian Endpoint Operations Console session
+---
+
+## Phase 3 — Defender XDR Security Audit
+
+**Tools:** Microsoft Defender XDR · Microsoft Graph PowerShell · PowerShell 7
+
+### What Was Built
+
+- Audited Defender XDR security posture across the tenant
+- Reviewed Microsoft Secure Score and Identity Secure Score
+- Exported incident, alert, and recommendation data via PowerShell
+- Generated 3 CSV audit reports: incidents, alerts, recommendations
+- Documented Secure Score baseline for ongoing security monitoring
+
+---
+
+## Phase 4 — User Onboarding Automation
+
+**Tools:** Microsoft Entra ID · Microsoft Graph PowerShell · Microsoft 365 E3
+
+### What Was Built
+
+- Created 5 department security groups (Meridian-HR, Finance, Faculty, IT, Administration)
+- Automated user provisioning and group assignment via Graph PowerShell
+- Onboarded test user Sarah Johnson: user creation, HR group assignment, usage location, M365 E3 license
+- Validated user access: MFA registration, Outlook, M365 portal, SharePoint, OneDrive, Teams
+- Exported group assignment and onboarding evidence to CSV
+- 14 screenshots documenting the full onboarding lifecycle
+
+---
+
+## Phase 5 — Endpoint Compliance & Conditional Access Audit
+
+**Tools:** Microsoft Intune · Microsoft Entra ID · Microsoft Graph PowerShell
+
+### What Was Built
+
+- Audited 9 Conditional Access policies (all Report-Only mode)
+- Reviewed 3 Intune compliance policies: iOS BYOD, WIN11 Faculty-Staff, WIN11 Standard
+- Queried managed device compliance posture across the tenant
+- Generated 3 CSV reports: conditional-access-policies, intune-compliance-policies, managed-devices
+- 4 screenshots: script execution, audit summary output, CA policies portal, Intune compliance portal
+
+---
+
+## Phase 6 — Zero-Touch Deployment Architecture
+
+**Focus:** End-to-end automated endpoint lifecycle architecture
+
+### What Was Built
+
+- Designed the full zero-touch deployment workflow integrating all prior phases
+- Architecture covers: Entra ID → Department Groups → M365 Licensing → Conditional Access → Intune Enrollment → Windows Autopilot → Defender → Windows 11 endpoint
+- Demonstrated how Sarah Johnson's onboarding flows through the complete automated pipeline
+- Documents the business outcome: standardized onboarding, improved endpoint security, reduced IT operational effort
 
 ---
 
@@ -104,19 +156,19 @@ The goal: prove hands-on competency across the exact tooling required for IT Sup
 Meridian-Institute-M365-Lab/
 ├── README.md
 ├── phase-1/
-│   ├── index.html
-│   └── assets/
-│       └── screenshots/
 ├── phase-2/
-    ├── index.html
-    └── assets/
-└── phase-3-defender-xdr/
-    ├── scripts/
-    ├── reports/
-    └── screenshots/
-    ├── index.html
-    └── assets/
-        └── screenshots/
+├── phase-3-defender-xdr/
+│   ├── scripts/
+│   ├── reports/
+│   └── screenshots/
+├── phase-4-user-onboarding-automation/
+│   ├── reports/
+│   └── screenshots/
+├── phase-5-endpoint-compliance/
+│   ├── scripts/
+│   ├── reports/
+│   └── screenshots/
+└── phase-6-zero-touch-deployment/
 ```
 
 ---
@@ -130,7 +182,8 @@ Meridian-Institute-M365-Lab/
 | Microsoft Intune | Autopilot, compliance policies, security baseline, update rings |
 | Microsoft Purview | DLP, Compliance Manager, retention labels |
 | Exchange Online | Shared mailbox, transport rules, mail security |
-| PowerShell 7.7 + Microsoft Graph SDK | Automation, validation, reporting |
+| Microsoft Defender XDR | Security operations, Secure Score, incident management |
+| PowerShell 7 + Microsoft Graph SDK | Automation, validation, reporting |
 | HTML / CSS / JavaScript | Portfolio evidence pages |
 | GitHub Pages | Live hosting |
 
