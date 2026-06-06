@@ -27,6 +27,17 @@ The goal: prove hands-on competency across the exact tooling required for IT Sup
 
 **Privacy note:** This repository uses a simulated organization and sanitized public tenant identifiers. No production users, customer data, passwords, tokens, or real organizational secrets are included.
 
+For a phase-by-phase evidence index, see [docs/evidence-map.md](docs/evidence-map.md).
+
+---
+
+## Scope & Limitations
+
+- This is a self-directed Microsoft 365 Developer Tenant lab, not a production deployment.
+- Conditional Access policies were kept in Report-Only mode to avoid tenant lockout while still validating policy design and monitoring impact.
+- Intune and Autopilot evidence documents policy configuration and architecture. No physical production device fleet was enrolled in this public lab.
+- Phase 6 is a zero-touch deployment reference architecture that connects the implemented identity, onboarding, Conditional Access, Intune, and Defender work into an end-to-end operating model.
+
 ---
 
 ## Phase 1 — Identity & Security Operations Baseline
@@ -143,7 +154,7 @@ The goal: prove hands-on competency across the exact tooling required for IT Sup
 
 **Focus:** End-to-end automated endpoint lifecycle architecture
 
-### What Was Built
+### What Was Designed
 
 - Designed the full zero-touch deployment workflow integrating all prior phases
 - Architecture covers: Entra ID → Department Groups → M365 Licensing → Conditional Access → Intune Enrollment → Windows Autopilot → Defender → Windows 11 endpoint
@@ -170,7 +181,9 @@ Meridian-Institute-M365-Lab/
 │   ├── scripts/
 │   ├── reports/
 │   └── screenshots/
-└── phase-6-zero-touch-deployment/
+├── phase-6-zero-touch-deployment/
+└── docs/
+    └── evidence-map.md
 ```
 
 ---
