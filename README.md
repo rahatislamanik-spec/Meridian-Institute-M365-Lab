@@ -38,6 +38,18 @@ For a phase-by-phase evidence index, see [docs/evidence-map.md](docs/evidence-ma
 - Intune and Autopilot evidence documents policy configuration and architecture. No physical production device fleet was enrolled in this public lab.
 - Phase 6 is a zero-touch deployment reference architecture that connects the implemented identity, onboarding, Conditional Access, Intune, and Defender work into an end-to-end operating model.
 
+## Production Rollout Assumptions
+
+If this lab were converted into a production rollout, the next controls would be required before enforcement:
+
+- Maintain at least two cloud-only break-glass administrator accounts excluded from Conditional Access and monitored with alerting.
+- Pilot Conditional Access with a small group first, review Report-Only impact, then move policies to enabled in staged rings.
+- Keep a documented rollback path for each CA policy, including emergency disable steps and owner approval.
+- Consolidate overlapping MFA policies before enforcement to reduce policy conflict and troubleshooting complexity.
+- Enroll test Windows, macOS, iOS, and BYOD devices before using compliance state as an access requirement.
+- Validate Autopilot with a physical or virtual Windows test device before treating zero-touch deployment as implemented.
+- Confirm Microsoft licensing prerequisites for Entra ID, Intune, Defender, Purview, and Identity Protection features.
+
 ## Control Status Summary
 
 | Area | Public Evidence Status | Notes |

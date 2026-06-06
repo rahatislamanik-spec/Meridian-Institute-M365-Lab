@@ -20,6 +20,19 @@ This phase is an architecture design that ties together the implemented identity
 
 ---
 
+## Production Rollout Assumptions
+
+Before this architecture could be implemented in production, Meridian Institute would need:
+
+* Break-glass administrator accounts excluded from Conditional Access and monitored separately
+* Conditional Access rollout rings moving from Report-Only to enabled after impact review
+* A documented rollback process for each access policy
+* Device enrollment testing for Windows, macOS, iOS/iPadOS, and BYOD scenarios
+* Autopilot validation with a real or virtual Windows endpoint
+* Licensing confirmation for Microsoft Intune, Entra ID, Defender, and Purview features
+
+---
+
 ## Workflow Architecture
 
 HR Onboarding Request
