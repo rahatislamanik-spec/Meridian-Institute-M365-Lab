@@ -395,7 +395,7 @@ ul.checks li::before{content:'✓';color:var(--green);font-weight:900;flex-shrin
 
 <span class="c"># DisplayName  Id                                   CountryLetterCode</span>
 <span class="c"># ----------   --                                   -----------------</span>
-<span class="c"># xyz.inc      31faeb7a-0aac-4053-9668-2f2ccdf58abb CA</span>
+<span class="c"># Contoso Lab      sanitized-tenant-id CA</span>
 </code></pre>
       </div>
 
@@ -672,7 +672,7 @@ const EVIDENCE = [
   {img:'img_14.png',title:'Homebrew — Installation Complete',desc:'Homebrew successfully installed and configured. Paths set for PowerShell 7 cask deployment. Foundation for PS 7 environment ready.',phase:'powershell'},
   {img:'img_16.png',title:'PS 7.4.13 — Graph Connection Established',desc:'PowerShell 7.4.13 launched. Install-Module Microsoft.Graph executed. Connect-MgGraph -Scopes run. "Welcome to Microsoft Graph!" — connection confirmed.',phase:'powershell'},
   {img:'img_15.png',title:'OAuth Redirect — Authentication Complete',desc:'Safari localhost redirect: "Authentication complete. You can return to the application." — delegated Graph API authentication flow validated.',phase:'powershell'},
-  {img:'img_17.png',title:'Get-MgUser — All 27 Users Returned',desc:'Get-MgUser | Select DisplayName, UserPrincipalName — complete 27-user tenant roster from nirjala.onmicrosoft.com returned via Graph API. Get-MgGroup follows.',phase:'powershell'},
+  {img:'img_17.png',title:'Get-MgUser — All 27 Users Returned',desc:'Get-MgUser | Select DisplayName, UserPrincipalName — complete 27-user tenant roster from contoso-lab.onmicrosoft.com returned via Graph API. Get-MgGroup follows.',phase:'powershell'},
   {img:'img_18.png',title:'Get-MgGroup + Audit Log Query',desc:'Get-MgGroup lists all 8 groups. Get-MgAuditLogSignIn -Top 10 initiated — sign-in telemetry query beginning.',phase:'powershell'},
   {img:'img_22.png',title:'Full User Classification Audit',desc:'Get-MgUser -All -Property DisplayName,UPN,JobTitle,Department — complete governance table showing all roles: Student, Professor, IT Admin, Security ops personas.',phase:'powershell'},
   {img:'img_23.png',title:'Dynamic Group Rules — All 4 Enumerated',desc:'Get-MgGroup filtered for DynamicMembership type returns all 4 rules: Security Operations, Students 2, Professors, IT Operations — rules confirmed in PowerShell.',phase:'powershell'},
@@ -688,7 +688,7 @@ const EVIDENCE = [
   {img:'img_05.png',title:'Password Reset Audit Log',desc:'SSPR audit trail: 4 "Change password (self-service)" events — all Result: Success — from the 14/05/2026 session. Password policy validated.',phase:'audit'},
   {img:'img_06.png',title:'SSPR Usage & Insights Dashboard',desc:'Registration dashboard: 1/27 MFA-capable users, 0/27 passwordless-capable, 1/27 SSPR-enabled. 96% gap identified — this is the remediation target.',phase:'audit'},
   {img:'img_43.png',title:'SignIn-Audit CSV — Full Export in Excel',desc:'Sign-in telemetry exported to SignIn-Audit.xlsx: AppDisplayName, ConditionalAccessStatus, IP, Location, UserDisplayName — full audit dataset for SOC review.',phase:'audit'},
-  {img:'img_46.png',title:'Directory Audit — Add User Events',desc:'Get-MgDirectoryAuditLog: 8 "Add user" activities — all Result: success — all CreatedBy: rahat.it.lab@nirjala.onmicrosoft.com. Full user creation audit trail.',phase:'audit'},
+  {img:'img_46.png',title:'Directory Audit — Add User Events',desc:'Get-MgDirectoryAuditLog: 8 "Add user" activities — all Result: success — all CreatedBy: automation.admin@contoso-lab.onmicrosoft.com. Full user creation audit trail.',phase:'audit'},
   {img:'img_10.png',title:'Devices Overview — Zero Alerts',desc:'Entra Devices: 0 stale devices, 0 noncompliant, 0 unmanaged. Tenant starts from a clean device baseline before Intune enrollment.',phase:'audit'},
   {img:'img_02.png',title:'Copilot Sign-In — Student Account Validated',desc:'Daniel Kim (student account, Computer Science) signed into M365 Copilot — confirms license assignment and user provisioning success.',phase:'audit'},
   {img:'img_03.png',title:'Copilot Sign-In — Global Admin Validated',desc:'Mia Allen (Global Administrator, Security Operations) accessed M365 Copilot — confirms elevated access, admin role assignment, and session validity.',phase:'audit'},

@@ -1,6 +1,6 @@
 # Meridian Institute — Microsoft 365 Security Operations Lab
 
-> A 6-phase, fully documented Microsoft 365 enterprise simulation built in a real developer tenant — covering identity governance, endpoint management, Defender XDR, Conditional Access (8 policies), Purview DLP, and PowerShell automation across 27 managed users. Secure Score improved from 54 to 79.
+> A 6-phase, fully documented Microsoft 365 enterprise simulation built in a dedicated developer tenant with sanitized public evidence — covering identity governance, endpoint management, Defender XDR, Conditional Access, Purview DLP, and PowerShell automation across 27 lab users. Secure Score improved from 54 to 79 during the lab.
 
 **Author:** Md Rahat Islam Anik · [linkedin.com/in/rahatislamanik](https://linkedin.com/in/rahatislamanik) · [github.com/rahatislamanik-spec](https://github.com/rahatislamanik-spec)
 
@@ -24,6 +24,8 @@
 This project simulates the full lifecycle of a Microsoft 365 environment buildout for a mid-size educational institution. Every configuration decision is documented through real admin portal screenshots, PowerShell output, and audit evidence — not tutorials or sandboxes.
 
 The goal: prove hands-on competency across the exact tooling required for IT Support, M365 Administration, and Cloud Security Operations roles.
+
+**Privacy note:** This repository uses a simulated organization and sanitized public tenant identifiers. No production users, customer data, passwords, tokens, or real organizational secrets are included.
 
 ---
 
@@ -177,7 +179,7 @@ Meridian-Institute-M365-Lab/
 
 | Tool | Purpose |
 |---|---|
-| Microsoft 365 Developer Tenant | Live lab environment (xyz.inc / nirjala.onmicrosoft.com) |
+| Microsoft 365 Developer Tenant | Dedicated simulated lab tenant with sanitized public identifiers |
 | Microsoft Entra ID | Identity, RBAC, Conditional Access, SSPR |
 | Microsoft Intune | Autopilot, compliance policies, security baseline, update rings |
 | Microsoft Purview | DLP, Compliance Manager, retention labels |

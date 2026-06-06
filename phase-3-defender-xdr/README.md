@@ -1,7 +1,7 @@
 # Phase 3 — Microsoft Defender XDR Security Audit
 
 > **Meridian Institute — Microsoft 365 Security Operations Lab**
-> Simulated enterprise environment using Microsoft 365 Developer Tenant (xyz.inc / nirjala.onmicrosoft.com)
+> Simulated enterprise environment using a dedicated Microsoft 365 Developer Tenant with sanitized public identifiers
 
 ---
 
@@ -69,7 +69,7 @@ Pulls the last 50 sign-in events from the audit log — distinguishing successfu
 
 ## 📊 Lab Audit Results
 
-From the Meridian Institute M365 Developer Tenant (nirjala.onmicrosoft.com):
+From the Meridian Institute M365 Developer Tenant:
 
 | Finding | Result | Status |
 |---|---|---|

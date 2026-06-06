@@ -27,7 +27,7 @@ This phase demonstrates:
 
 ### Tenant
 
-nirjala.onmicrosoft.com
+Dedicated Microsoft 365 Developer Tenant with sanitized public identifiers
 
 ### Administrator
 
