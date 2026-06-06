@@ -92,7 +92,7 @@ The onboarding process was automated using Microsoft Graph PowerShell.
 
 * Meridian-GroupAssignments.csv
 * Meridian-GroupAssignments-Updated.csv
-* Sarah-Johnson-Onboarding-Evidence.csv
+* Test-User-Onboarding-Evidence.csv
 
 ### Screenshots
 
