@@ -115,10 +115,10 @@ Complete script execution showing Microsoft Graph connection, all 5 audit sectio
 
 ---
 
-### 2. CSV Reports Generated
-Three CSV reports generated in the reports directory — secure score controls, risky users, and security alerts.
+### 2. Audit Findings Table
+PowerShell audit output showing the structured findings table used to summarize Secure Score, risky users, security alerts, and sign-in activity.
 
-![CSV Reports](screenshots/02-csv-reports-generated.png)
+![CSV Reports](screenshots/02-audit-findings-table.png)
 
 ---
 
@@ -132,14 +132,14 @@ Microsoft Defender XDR portal showing the security operations overview for the M
 ### 4. Microsoft Secure Score
 Secure Score dashboard showing the tenant's current score of 238.26 / 413 (57.7%) with improvement recommendations.
 
-![Secure Score](screenshots/04-secure-score.png)
+![Secure Score](screenshots/04-secure-score-dashboard.png)
 
 ---
 
-### 5. Entra ID — Sign-in Logs
-Sign-in logs showing the 50 recent authentication events — including the 13 failed sign-ins flagged by the audit script.
+### 5. Entra ID — Identity Secure Score
+Identity Secure Score view showing the identity security posture used alongside the Defender XDR audit findings.
 
-![Sign-in Logs](screenshots/05-entra-signin-logs.png)
+![Identity Secure Score](screenshots/05-identity-secure-score.png)
 
 ---
 
@@ -171,8 +171,8 @@ The 13 failed sign-ins finding directly maps to a real SOC workflow: investigate
 
 | Phase | Topic |
 |---|---|
-| [Phase 1](../phase-1-tenant-provisioning-identity-governance/) | Tenant Provisioning & Identity Governance |
-| [Phase 2](../phase-2-endpoint-security-compliance/) | Endpoint Security & Compliance |
+| [Phase 1](../phase-1/) | Tenant Provisioning & Identity Governance |
+| [Phase 2](../phase-2/) | Endpoint Security & Compliance |
 | **Phase 3** | **Defender XDR Security Audit** ← You are here |
 
 ---

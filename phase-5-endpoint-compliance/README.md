@@ -98,21 +98,28 @@ phase-5-endpoint-compliance/
 ### 1. Script Execution — Audit Summary
 Full script execution showing Microsoft Graph connection, CA policy enumeration (9 policies), Intune compliance policy fetch (3 policies), and managed device query.
 
-![Script Execution](screenshots/01-script-execution-summary.png)
+![Script Execution](screenshots/01-phase5-script-creation-execution-start.png)
 
 ---
 
 ### 2. Conditional Access Policies — Entra Portal
 Microsoft Entra ID Conditional Access portal showing all 9 policies in report-only state — MFA requirements, device compliance enforcement, and legacy authentication blocking.
 
-![CA Policies](screenshots/02-ca-policies-entra-portal.png)
+![CA Policies](screenshots/03-phase5-entra-conditional-access-policies.png)
 
 ---
 
 ### 3. Intune Compliance Policies
 Microsoft Intune compliance policies showing the 3 platform-specific policies configured for Meridian Institute — iOS BYOD, Windows Standard, and Windows Faculty/Staff.
 
-![Compliance Policies](screenshots/03-intune-compliance-policies.png)
+![Compliance Policies](screenshots/04-phase5-intune-compliance-policies.png)
+
+---
+
+### 4. PowerShell Audit Summary Output
+Terminal output showing the completed audit summary and report-generation status.
+
+![Audit Summary](screenshots/02-phase5-audit-summary-output.png)
 
 ---
 
