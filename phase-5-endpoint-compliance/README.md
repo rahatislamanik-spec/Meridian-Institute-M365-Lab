@@ -71,6 +71,8 @@ From the Meridian Institute M365 Developer Tenant:
 
 **9 Conditional Access policies — all in Report-Only mode.** This is best practice for a lab environment — policies are fully configured and monitored but not enforced, preventing accidental lockouts during testing. In a production deployment, high-priority policies (MFA for admins, block legacy auth) would be moved to Enabled.
 
+This audit shows 9 policies because it includes the additional BYOD web-only access policy added after the initial Phase 2 build. The lab intentionally preserves template-based and custom MFA variants as evidence; a production tenant would consolidate overlapping policies before enforcement.
+
 **3 Intune compliance policies** — covering the three device platforms configured in Phase 2: iOS/iPadOS BYOD, Windows Standard, and Windows Faculty/Staff. These policies define the compliance requirements devices must meet before CA policies grant access.
 
 **0 managed devices** — expected in a developer tenant with no physical devices enrolled. In production, this view would show all enrolled endpoints with their compliance status.

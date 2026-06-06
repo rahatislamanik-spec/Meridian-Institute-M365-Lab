@@ -99,6 +99,8 @@ For a phase-by-phase evidence index, see [docs/evidence-map.md](docs/evidence-ma
   - Require Compliant or Hybrid Azure AD Joined Device
   - Require MFA for Admins (template-based)
   - Require MFA for All Users (template-based)
+- Phase 5 later audited 9 total CA policies after adding a BYOD web-only access policy for SharePoint and Exchange review.
+- Duplicate/template MFA variants were retained as lab evidence; in production these would be rationalized into a cleaner policy set.
 - Created `MFA-Required-Users` security group for scoped CA targeting
 - Configured SSPR (Self-Service Password Reset) for all users
 - Assigned Helpdesk Administrator RBAC role to Helpdesk-Level1 group and Liam Thomas
@@ -154,6 +156,7 @@ For a phase-by-phase evidence index, see [docs/evidence-map.md](docs/evidence-ma
 ### What Was Built
 
 - Audited 9 Conditional Access policies (all Report-Only mode)
+- Reconciled CA policy growth from Phase 2: the audit includes the later BYOD web-only access policy
 - Reviewed 3 Intune compliance policies: iOS BYOD, WIN11 Faculty-Staff, WIN11 Standard
 - Queried managed device compliance posture across the tenant
 - Generated 3 CSV reports: conditional-access-policies, intune-compliance-policies, managed-devices

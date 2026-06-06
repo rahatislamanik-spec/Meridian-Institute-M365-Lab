@@ -29,5 +29,6 @@ This map helps reviewers quickly connect each project phase to the evidence in t
 
 - Public tenant identifiers are sanitized.
 - Conditional Access evidence is intentionally Report-Only for lab safety.
+- Phase 5 audits 9 Conditional Access policies because one BYOD web-only access policy was added after the initial Phase 2 policy build.
 - Intune and Autopilot evidence focuses on policy configuration and reference architecture rather than a production endpoint fleet.
 - No production customer data, passwords, tokens, or API keys are intentionally included.
