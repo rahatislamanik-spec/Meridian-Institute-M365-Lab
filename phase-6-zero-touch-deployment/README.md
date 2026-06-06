@@ -10,7 +10,7 @@ The workflow integrates Microsoft Entra ID, Microsoft 365 licensing, Conditional
 
 ## Objective
 
-Reduce manual onboarding effort by designing an automated workflow for user provisioning, staged security enforcement, device enrollment, application deployment, and endpoint configuration.
+Reduce manual onboarding effort by designing an automated workflow for user provisioning, staged security controls, device enrollment, application deployment, and endpoint configuration.
 
 ---
 

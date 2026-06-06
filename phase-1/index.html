@@ -618,7 +618,7 @@ const EVIDENCE = [
 
   // Phase 3: Conditional Access
   {img:'img_62.png',title:'New CA Policy — Require MFA for Admin Roles',desc:'Conditional Access policy creation: "Require MFA for Admin Roles" configured in Report-only mode. Target: All cloud apps. Safe for initial rollout.',phase:'ca'},
-  {img:'img_63.png',title:'Grant Controls — MFA Required',desc:'Grant access selected, "Require multifactor authentication" checked. This enforces MFA challenge for all covered admin sign-ins.',phase:'ca'},
+  {img:'img_63.png',title:'Grant Controls — MFA Required',desc:'Grant access selected, "Require multifactor authentication" checked. In Report-only mode, this validates the intended MFA challenge before enforcement.',phase:'ca'},
   {img:'img_64.png',title:'Policy Confirmed — MFA for Admins Active',desc:'"Successfully created Require MFA for Admin Roles" toast. CA Overview shows 2 Report-only policies, 0 Enabled — staged approach.',phase:'ca'},
   {img:'img_65.png',title:'Policy Confirmed — Block Legacy Auth Active',desc:'"Successfully created Block Legacy Authentication" — second security policy eliminates legacy protocol attack surface.',phase:'ca'},
   {img:'img_66.png',title:'CA Policies Overview — 3 Policies in Report-Only',desc:'Conditional Access policies list: Require MFA for Admin Roles, Require compliant or hybrid Azure AD joined device, Require MFA for admins — all Report-only, all user-created.',phase:'ca'},
@@ -632,7 +632,7 @@ const EVIDENCE = [
   {img:'img_18.png',title:'Get-MgGroup + Audit Log Query',desc:'Get-MgGroup lists all 8 groups. Get-MgAuditLogSignIn -Top 10 initiated — sign-in telemetry query beginning.',phase:'powershell'},
   {img:'img_22.png',title:'Full User Classification Audit',desc:'Get-MgUser -All -Property DisplayName,UPN,JobTitle,Department — complete governance table showing all roles: Student, Professor, IT Admin, Security ops personas.',phase:'powershell'},
   {img:'img_23.png',title:'Dynamic Group Rules — All 4 Enumerated',desc:'Get-MgGroup filtered for DynamicMembership type returns all 4 rules: Security Operations, Students 2, Professors, IT Operations — rules confirmed in PowerShell.',phase:'powershell'},
-  {img:'img_25.png',title:'Sign-In Log Detail Objects',desc:'Expanded Get-MgAuditLogSignIn output: UPN, App, ConditionalAccessStatus, CreatedDateTime per event. Mia Allen shows notApplied and failure — pre-CA enforcement expected.',phase:'powershell'},
+  {img:'img_25.png',title:'Sign-In Log Detail Objects',desc:'Expanded Get-MgAuditLogSignIn output: UPN, App, ConditionalAccessStatus, CreatedDateTime per event. Mia Allen shows notApplied and failure — pre-CA rollout behavior documented.',phase:'powershell'},
   {img:'img_30.png',title:'Unlicensed Student Detection — 6 Found',desc:'Get-MgUser filter AssignedLicenses.Count -eq 0 → 6 students identified: Aisha Rahman, Chloe Martin, Daniel Kim, Jason Patel, Ryan Chen, Sarah Ahmed. 403 error on MFA method query — scope limitation correctly noted.',phase:'powershell'},
   {img:'img_35.png',title:'Multi-Query Audit Session',desc:'MFA-Audit-Report.csv opened. Then: disabled account filter → no results (good). Guest user filter → no results (expected). Get-MgDevice → no managed devices. Last-SignIn activity query across all 27 users.',phase:'powershell'},
   {img:'img_40.png',title:'Lifecycle Prep — Unlicensed Student Filter',desc:'Disconnect-MgGraph, reconnect with ReadWrite scopes. $unlicensedStudents defined with JobTitle and AssignedLicenses filter — 6 students ready for lifecycle action.',phase:'powershell'},

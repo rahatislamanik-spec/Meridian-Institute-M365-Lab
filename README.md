@@ -38,6 +38,17 @@ For a phase-by-phase evidence index, see [docs/evidence-map.md](docs/evidence-ma
 - Intune and Autopilot evidence documents policy configuration and architecture. No physical production device fleet was enrolled in this public lab.
 - Phase 6 is a zero-touch deployment reference architecture that connects the implemented identity, onboarding, Conditional Access, Intune, and Defender work into an end-to-end operating model.
 
+## Control Status Summary
+
+| Area | Public Evidence Status | Notes |
+|---|---|---|
+| Entra users, groups, roles, and licensing | Implemented and validated | Lab users, RBAC assignments, group membership, and licensing were configured and checked with portal evidence and Graph PowerShell. |
+| Conditional Access | Configured and monitored in Report-Only mode | Policies were staged safely for impact review; they were not enabled for production enforcement. |
+| Intune compliance and security policies | Configured and documented | Policies and baselines were created, but no physical production device fleet was enrolled in this public lab. |
+| Microsoft Purview DLP | Configured in simulation mode | DLP policies were designed and reviewed without production blocking. |
+| Defender XDR / Secure Score | Audited and documented | Secure Score, control recommendations, risky users, alerts, and sign-in activity were reviewed through portal and Graph evidence. |
+| Zero-touch deployment | Architecture design | Phase 6 documents the target operating model rather than a completed production deployment. |
+
 ---
 
 ## Phase 1 — Identity & Security Operations Baseline
@@ -58,7 +69,7 @@ For a phase-by-phase evidence index, see [docs/evidence-map.md](docs/evidence-ma
 - Exported audit reports (users, groups, licenses, sign-in logs) to CSV for documentation
 - Validated all configurations via PowerShell output — no screenshot-only evidence
 
-**Security Hardening**
+**Security Baseline & Readiness**
 - Configured Microsoft Secure Score baseline tracking
 - Reviewed sign-in logs and authentication methods across all user accounts
 - Documented identity posture for Conditional Access readiness in Phase 2
@@ -76,7 +87,7 @@ For a phase-by-phase evidence index, see [docs/evidence-map.md](docs/evidence-ma
 - Configured macOS and iOS/iPadOS BYOD compliance policies with password, encryption, firewall, and OS version requirements
 - Deployed Microsoft Security Baseline for Windows 11 (`Meridian-WIN11-Enterprise-Security-Baseline`, Version 25H2)
 - Configured Windows Update ring (`Meridian-WIN11-Pilot-Update-Ring`) with 3-day quality deferral and 7-day feature deferral
-- Built Attack Surface Reduction (ASR) rules policy for Windows endpoint hardening
+- Built Attack Surface Reduction (ASR) rules policy for Windows endpoint baseline configuration
 
 **Conditional Access (Entra ID)**
 - Created 8 Conditional Access policies (all Report-Only — zero user disruption):
@@ -158,7 +169,7 @@ For a phase-by-phase evidence index, see [docs/evidence-map.md](docs/evidence-ma
 
 - Designed the full zero-touch deployment workflow integrating all prior phases
 - Architecture covers: Entra ID → Department Groups → M365 Licensing → Conditional Access → Intune Enrollment → Windows Autopilot → Defender → Windows 11 endpoint
-- Demonstrated how Sarah Johnson's onboarding flows through the complete automated pipeline
+- Demonstrated how Sarah Johnson's onboarding would flow through the complete automated pipeline
 - Documents the business outcome: standardized onboarding, improved endpoint security, reduced IT operational effort
 
 ---

@@ -13,7 +13,7 @@ This phase implements an automated **Endpoint Compliance and Conditional Access 
 
 Without a structured audit process, IT administrators have no centralized view of:
 - Which Conditional Access policies are active vs report-only vs disabled
-- What compliance requirements are enforced across device platforms
+- What compliance requirements are configured across device platforms
 - How many devices are compliant vs non-compliant at any point in time
 - Whether CA policies align with the organization's Zero Trust security requirements
 
@@ -103,7 +103,7 @@ Full script execution showing Microsoft Graph connection, CA policy enumeration 
 ---
 
 ### 2. Conditional Access Policies — Entra Portal
-Microsoft Entra ID Conditional Access portal showing all 9 policies in report-only state — MFA requirements, device compliance enforcement, and legacy authentication blocking.
+Microsoft Entra ID Conditional Access portal showing all 9 policies in report-only state — MFA requirements, device compliance access review, and legacy authentication blocking strategy.
 
 ![CA Policies](screenshots/03-phase5-entra-conditional-access-policies.png)
 
@@ -130,7 +130,7 @@ Terminal output showing the completed audit summary and report-generation status
 - ✅ All CA policies in Report-Only mode — safe monitoring without enforcement risk
 - ✅ 0 disabled policies — clean policy hygiene, no orphaned configurations
 - ✅ 3 CSV reports exported via PowerShell and Microsoft Graph
-- ✅ Compliance posture baseline established for Phase 6 zero-touch deployment
+- ✅ Compliance posture baseline established for Phase 6 zero-touch deployment design
 
 ---
 
@@ -138,7 +138,7 @@ Terminal output showing the completed audit summary and report-generation status
 
 Endpoint compliance auditing is a core responsibility for:
 
-- **M365 Administrators** — ensuring CA policies are correctly configured and enforced
+- **M365 Administrators** — ensuring CA policies are correctly configured, monitored, and safely moved toward enforcement
 - **Security Operations teams** — monitoring device compliance posture daily
 - **IT Managers** — reporting compliance coverage to leadership
 - **Cloud Administrators** — validating Zero Trust access controls are in place
