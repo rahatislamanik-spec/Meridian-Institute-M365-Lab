@@ -10,6 +10,20 @@
 | ------------: | --------------------------: | --------------: | ------------------: | -----------------------: | ---------: |
 |            27 |                           9 |              5+ |                   3 |                  54 → 79 |          6 |
 
+## Enterprise Architecture
+
+![Meridian Enterprise Architecture](docs/architecture/Meridian-M365-Enterprise-Architecture-v1.png)
+
+### Executive Summary
+
+📄 [Meridian Institute Executive Summary](docs/executive-summary/Meridian-Institute-Executive-Summary.pdf)
+
+This project demonstrates a layered Microsoft 365 administration and security architecture covering identity governance, Conditional Access, endpoint management, compliance controls, Windows Autopilot deployment planning, Microsoft Defender XDR security operations, and Microsoft Graph PowerShell automation.
+
+
+
+
+
 ### Environment Summary
 
 * Microsoft Entra ID identity governance and RBAC
