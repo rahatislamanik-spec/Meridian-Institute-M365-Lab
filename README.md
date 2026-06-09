@@ -12,16 +12,74 @@
 
 ## Enterprise Architecture
 
-![Meridian Enterprise Architecture](docs/architecture/Meridian-M365-Enterprise-Architecture-v1.png)
+```mermaid
+flowchart TD
+    subgraph Users["Meridian Institute — User Personas"]
+        U1["Students"]
+        U2["Faculty"]
+        U3["IT Operations"]
+        U4["Security Operations"]
+    end
+
+    subgraph Identity["Identity Foundation — Microsoft Entra ID"]
+        E1["User Provisioning and RBAC"]
+        E2["MFA and SSPR Configuration"]
+        E3["Graph PowerShell Automation"]
+        E4["Dynamic Security Groups"]
+    end
+
+    subgraph Policy["Access Control and Licensing"]
+        P1["9 Conditional Access Policies — Report-Only Mode"]
+        P2["M365 E3 and E5 License Assignment"]
+        P3["MFA-Required-Users Security Group"]
+    end
+
+    subgraph Protection["Protection and Compliance Workloads"]
+        PR1["Microsoft Intune — Compliance Policies and Security Baselines"]
+        PR2["Exchange Online — Mail Security and Transport Rules"]
+        PR3["Microsoft Purview — DLP Policies and Retention Labels"]
+        PR4["Windows Autopilot — Zero-Touch Deployment Profiles"]
+    end
+
+    subgraph XDR["Security Operations — Microsoft Defender XDR"]
+        X1["Secure Score Improved from 54 to 79"]
+        X2["Incident and Alert Audit via PowerShell"]
+        X3["Risky User and Sign-in Log Review"]
+    end
+
+    subgraph Outcomes["Enterprise Outcomes"]
+        O1["27 Users Managed Across 4 Role Categories"]
+        O2["Automated Onboarding Pipeline"]
+        O3["100% Policy and Compliance Coverage"]
+        O4["Governed, Protected and Monitored Environment"]
+    end
+
+    Users --> Identity
+    Identity --> Policy
+    Policy --> Protection
+    Protection --> XDR
+    XDR --> Outcomes
+
+    classDef userStyle fill:#DBEAFE,stroke:#1D4ED8,stroke-width:3px,color:#1e3a5f
+    classDef identityStyle fill:#EDE9FE,stroke:#6D28D9,stroke-width:3px,color:#3b0764
+    classDef policyStyle fill:#FEF9C3,stroke:#B45309,stroke-width:3px,color:#451a03
+    classDef protectionStyle fill:#F3E8FF,stroke:#7C3AED,stroke-width:3px,color:#2e1065
+    classDef xdrStyle fill:#FEE2E2,stroke:#B91C1C,stroke-width:3px,color:#450a0a
+    classDef outcomeStyle fill:#DCFCE7,stroke:#15803D,stroke-width:3px,color:#14532d
+
+    class U1,U2,U3,U4 userStyle
+    class E1,E2,E3,E4 identityStyle
+    class P1,P2,P3 policyStyle
+    class PR1,PR2,PR3,PR4 protectionStyle
+    class X1,X2,X3 xdrStyle
+    class O1,O2,O3,O4 outcomeStyle
+```
 
 ### Executive Summary
 
 📄 [Meridian Institute Executive Summary](docs/executive-summary/Meridian-Institute-Executive-Summary.pdf)
 
 This project demonstrates a layered Microsoft 365 administration and security architecture covering identity governance, Conditional Access, endpoint management, compliance controls, Windows Autopilot deployment planning, Microsoft Defender XDR security operations, and Microsoft Graph PowerShell automation.
-
-
-
 
 
 ### Environment Summary
@@ -36,25 +94,6 @@ This project demonstrates a layered Microsoft 365 administration and security ar
 
 ### Enterprise Architecture Overview
 
-```text
-User / Department Role
-        ↓
-Microsoft Entra ID
-        ↓
-Department Security Groups
-        ↓
-Microsoft 365 Licensing
-        ↓
-Conditional Access Policies
-        ↓
-Intune Compliance + Security Baselines
-        ↓
-Windows Autopilot Enrollment
-        ↓
-Microsoft Defender XDR
-        ↓
-Managed Endpoint + Secure User Access
-```
 
 ### Key Outcomes
 
