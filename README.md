@@ -1,4 +1,5 @@
 # Meridian Institute — Microsoft 365 Security Operations Lab
+> **Status:** Portfolio Complete — v1.0
 
 > A 6-phase, fully documented Microsoft 365 enterprise simulation built in a dedicated developer tenant with sanitized public evidence — covering identity governance, endpoint management, Defender XDR, Conditional Access, Purview DLP, and PowerShell automation across 27 lab users. Secure Score improved from 54 to 79 during the lab.
 
