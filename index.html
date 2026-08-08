@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meridian Institute — Microsoft 365 Security Operations Lab</title>
+<style>
+  :root {
+    --azure: #0078D4;
+    --azure-dark: #1a3c6e;
+    --azure-light: #eef6fc;
+    --purple: #6D28D9;
+    --purple-light: #EDE9FE;
+    --green: #15803D;
+    --green-light: #DCFCE7;
+    --red: #B91C1C;
+    --red-light: #FEE2E2;
+    --amber: #B45309;
+    --amber-light: #FEF9C3;
+    --text: #1f2933;
+    --muted: #5a6470;
+    --border: #dbe7f3;
+    --bg: #f4f8fb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* NAV */
+  nav { background: var(--azure-dark); padding: 14px 32px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  nav .brand { color: #fff; font-weight: 700; font-size: 0.95rem; margin-right: auto; }
+  nav a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.87rem; }
+  nav a:hover { color: #fff; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%); color: #fff; padding: 56px 32px 48px; text-align: center; }
+  .hero-badge { display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 5px 18px; font-size: 0.82rem; margin-bottom: 18px; }
+  .hero h1 { font-size: 2rem; font-weight: 700; margin-bottom: 10px; }
+  .hero .subtitle { font-size: 0.97rem; opacity: 0.85; max-width: 680px; margin: 0 auto 24px; }
+  .metrics { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 28px; }
+  .metric { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 12px 20px; text-align: center; }
+  .metric .num { font-size: 1.6rem; font-weight: 800; color: #60A5FA; display: block; }
+  .metric .label { font-size: 0.75rem; opacity: 0.8; }
+  .hero-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .hero-links a { background: rgba(255,255,255,0.15); color: #fff; text-decoration: none; padding: 8px 20px; border-radius: 8px; font-size: 0.88rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.3); }
+  .hero-links a:hover { background: rgba(255,255,255,0.25); }
+
+  /* CONTAINER */
+  .container { max-width: 1060px; margin: 0 auto; padding: 40px 24px; }
+
+  /* CARDS */
+  .card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; margin-bottom: 28px; box-shadow: 0 2px 12px rgba(13,71,161,0.06); }
+  .card h2 { font-size: 1.15rem; font-weight: 700; color: var(--azure-dark); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+
+  /* PHASE GRID */
+  .phase-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
+  .phase-card { border-radius: 10px; padding: 18px 20px; border: 1px solid var(--border); text-decoration: none; color: inherit; transition: box-shadow 0.2s, transform 0.2s; display: block; }
+  .phase-card:hover { box-shadow: 0 4px 20px rgba(0,120,212,0.15); transform: translateY(-2px); }
+  .phase-num { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .phase-card h3 { font-size: 0.92rem; font-weight: 700; margin-bottom: 6px; }
+  .phase-card p { font-size: 0.82rem; color: var(--muted); margin: 0; }
+  .phase-card .view-link { font-size: 0.8rem; font-weight: 600; margin-top: 10px; display: inline-block; }
+
+  .phase-1 { background: #EDE9FE; border-color: #6D28D9; }
+  .phase-1 .phase-num, .phase-1 .view-link { color: #6D28D9; }
+  .phase-2 { background: #DBEAFE; border-color: #1D4ED8; }
+  .phase-2 .phase-num, .phase-2 .view-link { color: #1D4ED8; }
+  .phase-3 { background: #FEE2E2; border-color: #B91C1C; }
+  .phase-3 .phase-num, .phase-3 .view-link { color: #B91C1C; }
+  .phase-4 { background: #DCFCE7; border-color: #15803D; }
+  .phase-4 .phase-num, .phase-4 .view-link { color: #15803D; }
+  .phase-5 { background: #FEF9C3; border-color: #B45309; }
+  .phase-5 .phase-num, .phase-5 .view-link { color: #B45309; }
+  .phase-6 { background: #F3E8FF; border-color: #7C3AED; }
+  .phase-6 .phase-num, .phase-6 .view-link { color: #7C3AED; }
+
+  /* SECURE SCORE */
+  .score-bar { background: var(--azure-light); border-radius: 12px; padding: 24px 28px; margin-top: 16px; }
+  .score-row { display: flex; align-items: center; gap: 20px; }
+  .score-num { font-size: 2.5rem; font-weight: 800; color: var(--azure); }
+  .score-arrow { font-size: 2rem; color: var(--green); }
+  .score-label { font-size: 0.88rem; color: var(--muted); }
+  .progress-bar { height: 12px; background: #e2e8f0; border-radius: 6px; margin-top: 12px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--azure) 0%, var(--green) 100%); border-radius: 6px; width: 79%; }
+
+  /* TECH TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 14px; }
+  th { background: var(--azure); color: #fff; padding: 10px 14px; text-align: left; }
+  td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--muted); }
+  tr:nth-child(even) td { background: #fafcfe; }
+
+  /* SKILLS */
+  .skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .skill { background: var(--azure-light); color: var(--azure-dark); border: 1px solid var(--border); padding: 5px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+
+  /* FOOTER */
+  footer { text-align: center; padding: 28px; color: var(--muted); font-size: 0.82rem; border-top: 1px solid var(--border); background: #fff; }
+  footer a { color: var(--azure); text-decoration: none; }
+
+  @media (max-width: 640px) {
+    .phase-grid { grid-template-columns: 1fr; }
+    .metrics { gap: 10px; }
+    .hero h1 { font-size: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">Meridian Institute — M365 Security Operations Lab</span>
+  <a href="https://github.com/rahatislamanik-spec/Meridian-Institute-M365-Lab">GitHub</a>
+  <a href="docs/executive-summary/Meridian-Institute-Executive-Summary.pdf">Executive Summary</a>
+  <a href="https://linkedin.com/in/rahatislamanik">LinkedIn</a>
+  <a href="https://rahatislamanik-spec.github.io/IT-Portfolio-Rahat-Islam-Anik/">Portfolio</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">✅ Portfolio Complete — v1.0</div>
+  <h1>Meridian Institute</h1>
+  <div class="subtitle">A 6-phase Microsoft 365 enterprise security operations lab — identity governance, endpoint management, Defender XDR, Conditional Access, Purview DLP, and PowerShell automation across a dedicated developer tenant.</div>
+
+  <div class="metrics">
+    <div class="metric"><span class="num">27</span><span class="label">Users Managed</span></div>
+    <div class="metric"><span class="num">9</span><span class="label">CA Policies</span></div>
+    <div class="metric"><span class="num">54→79</span><span class="label">Secure Score</span></div>
+    <div class="metric"><span class="num">6</span><span class="label">Lab Phases</span></div>
+    <div class="metric"><span class="num">3</span><span class="label">Compliance Policies</span></div>
+    <div class="metric"><span class="num">5+</span><span class="label">Security Groups</span></div>
+  </div>
+
+  <div class="hero-links">
+    <a href="docs/executive-summary/Meridian-Institute-Executive-Summary.pdf">📄 Executive Summary</a>
+    <a href="phase-1/">Phase 1 →</a>
+    <a href="phase-3-defender-xdr/">Defender XDR →</a>
+    <a href="https://github.com/rahatislamanik-spec/Meridian-Institute-M365-Lab">View on GitHub</a>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- PHASES -->
+  <div class="card">
+    <h2>🗺️ Lab Phases — Click to Explore</h2>
+    <p style="color:var(--muted); font-size:0.9rem;">Each phase is a fully documented lab module with screenshots, PowerShell scripts, and configuration evidence.</p>
+    <div class="phase-grid">
+
+      <a class="phase-card phase-1" href="phase-1/">
+        <div class="phase-num">Phase 1</div>
+        <h3>Identity, Users & Sign-In Security</h3>
+        <p>Entra ID user provisioning, RBAC, MFA, SSPR, dynamic security groups, and Graph PowerShell automation across 27 enterprise user personas.</p>
+        <span class="view-link">View Phase 1 →</span>
+      </a>
+
+      <a class="phase-card phase-2" href="phase-2/">
+        <div class="phase-num">Phase 2</div>
+        <h3>Endpoint, Conditional Access & Purview DLP</h3>
+        <p>Microsoft Intune compliance policies, 9 Conditional Access policies in report-only mode, Exchange Online mail security, and Purview DLP rules.</p>
+        <span class="view-link">View Phase 2 →</span>
+      </a>
+
+      <a class="phase-card phase-3" href="phase-3-defender-xdr/">
+        <div class="phase-num">Phase 3</div>
+        <h3>Defender XDR Security Audit</h3>
+        <p>Microsoft Secure Score improvement from 54 to 79. Risky user review, sign-in log analysis, incident audit via PowerShell, and security alert triage.</p>
+        <span class="view-link">View Phase 3 →</span>
+      </a>
+
+      <a class="phase-card phase-4" href="phase-4-user-onboarding-automation/">
+        <div class="phase-num">Phase 4</div>
+        <h3>User Onboarding Automation</h3>
+        <p>Automated onboarding pipeline using Microsoft Graph PowerShell — Entra ID group creation, M365 E3 license assignment, and end-to-end verification.</p>
+        <span class="view-link">View Phase 4 →</span>
+      </a>
+
+      <a class="phase-card phase-5" href="phase-5-endpoint-compliance/">
+        <div class="phase-num">Phase 5</div>
+        <h3>Endpoint Compliance & CA Audit</h3>
+        <p>Intune compliance policy audit, Conditional Access policy export via PowerShell, managed device review, and compliance gap analysis with CSV reports.</p>
+        <span class="view-link">View Phase 5 →</span>
+      </a>
+
+      <a class="phase-card phase-6" href="phase-6-zero-touch-deployment/">
+        <div class="phase-num">Phase 6</div>
+        <h3>Zero-Touch Deployment Architecture</h3>
+        <p>Windows Autopilot deployment profile design, Intune enrollment configuration, and zero-touch provisioning architecture documentation.</p>
+        <span class="view-link">View Phase 6 →</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- SECURE SCORE -->
+  <div class="card">
+    <h2>📊 Microsoft Secure Score — Lab Outcome</h2>
+    <div class="score-bar">
+      <div class="score-row">
+        <div>
+          <div style="font-size:0.85rem; color:var(--muted); margin-bottom:4px;">Starting Score</div>
+          <span class="score-num">54</span>
+        </div>
+        <span class="score-arrow">→</span>
+        <div>
+          <div style="font-size:0.85rem; color:var(--muted); margin-bottom:4px;">Final Score</div>
+          <span class="score-num" style="color:var(--green);">79</span>
+        </div>
+        <div style="margin-left:16px;">
+          <div style="font-size:0.85rem; color:var(--muted);">Improvement</div>
+          <div style="font-size:1.4rem; font-weight:800; color:var(--green);">+25 points</div>
+          <div style="font-size:0.78rem; color:var(--muted);">Achieved through identity hardening, MFA enforcement, Conditional Access policy implementation, and Defender XDR recommendations</div>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--muted); margin-top:4px;"><span>0</span><span>79 / 100</span></div>
+    </div>
+  </div>
+
+  <!-- WHAT THIS DEMONSTRATES -->
+  <div class="card">
+    <h2>🎯 What This Lab Demonstrates</h2>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:16px;">This project simulates the full Microsoft 365 operational lifecycle for a mid-size educational institution — from initial identity setup through security hardening, compliance enforcement, and automated onboarding. All configurations use a dedicated developer tenant with sanitized public evidence.</p>
+    <table>
+      <thead><tr><th>Workload</th><th>What Was Configured</th></tr></thead>
+      <tbody>
+        <tr><td>Microsoft Entra ID</td><td>27 users provisioned, RBAC assigned, MFA enabled, SSPR configured, dynamic security groups created</td></tr>
+        <tr><td>Conditional Access</td><td>9 policies configured in report-only mode — MFA-required, compliant device, block legacy auth, location-based</td></tr>
+        <tr><td>Microsoft Intune</td><td>Compliance policies, security baselines, BYOD enrollment, managed device inventory</td></tr>
+        <tr><td>Microsoft Defender XDR</td><td>Secure Score audit, risky user review, sign-in log analysis, incident and alert triage via PowerShell</td></tr>
+        <tr><td>Microsoft Purview</td><td>DLP policies, retention labels, compliance controls for educational data governance</td></tr>
+        <tr><td>Exchange Online</td><td>Mail flow rules, transport rules, anti-spam configuration, shared mailbox setup</td></tr>
+        <tr><td>Graph PowerShell</td><td>Automated user onboarding, license assignment, group membership, compliance reporting</td></tr>
+        <tr><td>Windows Autopilot</td><td>Zero-touch deployment profile design, Intune enrollment configuration</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="card">
+    <h2>💡 Skills Demonstrated</h2>
+    <div class="skills">
+      <span class="skill">Microsoft 365 Administration</span>
+      <span class="skill">Microsoft Entra ID</span>
+      <span class="skill">Conditional Access</span>
+      <span class="skill">Microsoft Intune</span>
+      <span class="skill">Defender XDR</span>
+      <span class="skill">Microsoft Purview</span>
+      <span class="skill">Exchange Online</span>
+      <span class="skill">Graph PowerShell</span>
+      <span class="skill">Windows Autopilot</span>
+      <span class="skill">Secure Score Optimization</span>
+      <span class="skill">Identity Governance</span>
+      <span class="skill">RBAC</span>
+      <span class="skill">MFA & SSPR</span>
+      <span class="skill">DLP Policies</span>
+      <span class="skill">Zero-Touch Deployment</span>
+      <span class="skill">M365 E3/E5 Licensing</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Meridian Institute — Microsoft 365 Security Operations Lab · Portfolio Project by Md Rahat Islam Anik<br>
+  <a href="https://linkedin.com/in/rahatislamanik">LinkedIn</a> &nbsp;·&nbsp;
+  <a href="https://github.com/rahatislamanik-spec/Meridian-Institute-M365-Lab">GitHub</a> &nbsp;·&nbsp;
+  <a href="https://rahatislamanik-spec.github.io/IT-Portfolio-Rahat-Islam-Anik/">Full Portfolio</a>
+</footer>
+
+</body>
+</html>
